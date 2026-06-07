@@ -1,0 +1,22 @@
+:root {
+  --bg: #0d1120;
+  --bg-deep: #15111a;
+  --gold: #d8b45c;
+  --cream: #f1e7d8;
+  --lavender: #a892d6;
+  --blue: #22314d;
+  --rose: #e8a9c8;
+  --sage: #9db7a5;
+  --coral: #e58d7a;
+  --slate: #7c8798;
+  --ink: #080a12;
+  --panel: rgba(13, 17, 32, 0.74);
+  --panel-strong: rgba(21, 17, 26, 0.9);
+  --line: rgba(241, 231, 216, 0.18);
+  --line-bright: rgba(216, 180, 92, 0.55);
+  --shadow: 0 22px 80px rgba(0, 0, 0, 0.45);
+  --heading-font: "Playfair Display", Georgia, serif;
+  --body-font: "Inter", "Be Vietnam Pro", system-ui, sans-serif;
+  --mono-font: "Inconsolata", "IBM Plex Mono", monospace;
+  --hand-font: "Patrick Hand", "Comic Sans MS", cursive;
+}

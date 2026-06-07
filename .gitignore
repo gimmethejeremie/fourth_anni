@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+.edge-profile*/
+vite-dev.log
+vite-dev.err
+.codex-*.log
+_codex_checkpoints/
+_codex_qa/

@@ -1,0 +1,92 @@
+.app {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.78;
+}
+
+.mainContent {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.journeyPage {
+  position: relative;
+  z-index: 2;
+}
+
+.starlogFab,
+.rewindFab {
+  position: fixed;
+  bottom: clamp(0.9rem, 3vw, 1.4rem);
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(216, 180, 92, 0.34);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(216, 180, 92, 0.18), transparent 62%),
+    rgba(8, 10, 18, 0.58);
+  color: var(--gold);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  opacity: 0.74;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.starlogFab {
+  right: clamp(0.9rem, 3vw, 1.4rem);
+  width: 48px;
+  height: 48px;
+  font-size: 1.1rem;
+}
+
+.starlogFab:hover {
+  border-color: rgba(241, 231, 216, 0.56);
+  opacity: 1;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.arcadeFab {
+  position: fixed;
+  bottom: clamp(0.9rem, 3vw, 1.4rem);
+  right: calc(clamp(0.9rem, 3vw, 1.4rem) + 60px);
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(168, 85, 247, 0.34);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(168, 85, 247, 0.18), transparent 62%),
+    rgba(8, 10, 18, 0.58);
+  color: #c084fc;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  opacity: 0.74;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease;
+  width: 48px;
+  height: 48px;
+  font-size: 1.4rem;
+}
+
+.arcadeFab:hover {
+  border-color: rgba(192, 132, 252, 0.56);
+  opacity: 1;
+  transform: translateY(-2px) scale(1.04);
+  color: #d8b4fe;
+}

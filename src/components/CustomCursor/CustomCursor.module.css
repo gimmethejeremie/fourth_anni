@@ -1,0 +1,48 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  color: var(--gold);
+  font-size: 1.1rem;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow: 0 0 12px rgba(216, 180, 92, 0.72);
+  transform: translate3d(-100px, -100px, 0);
+  transition:
+    color 160ms ease,
+    text-shadow 160ms ease;
+}
+
+.cursor::before {
+  position: absolute;
+  inset: 2px;
+  border: 1px solid rgba(241, 231, 216, 0.34);
+  border-radius: 50%;
+  content: "";
+}
+
+.hovering {
+  color: var(--rose);
+  text-shadow: 0 0 16px rgba(232, 169, 200, 0.8);
+}
+
+.pulse::before {
+  animation: pulse 220ms ease-out;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}

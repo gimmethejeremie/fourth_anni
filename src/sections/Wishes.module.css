@@ -1,0 +1,316 @@
+.wishesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 4rem 2rem;
+}
+
+.royalPanel {
+  --royal-bg-top: var(--bg-deep, #15111a);
+  --royal-bg-bottom: var(--bg, #0d1120);
+  --royal-border: rgba(168, 146, 214, 0.32);
+  --royal-border-soft: rgba(168, 146, 214, 0.18);
+  --royal-shadow: rgba(0, 0, 0, 0.42);
+  --royal-ribbon-start: var(--lavender, #a892d6);
+  --royal-ribbon-end: var(--blue, #22314d);
+  --wish-border: rgba(168, 146, 214, 0.26);
+  --wish-text: var(--cream, #f1e7d8);
+  --wish-surface: var(--panel, rgba(13, 17, 32, 0.74));
+  
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 28px;
+  border: 2px solid var(--royal-border);
+  background: linear-gradient(180deg, var(--royal-bg-top), var(--royal-bg-bottom));
+  box-shadow: 0 24px 46px var(--royal-shadow), 0 0 30px rgba(168, 146, 214, 0.1);
+  padding: clamp(20px, 3vw, 28px) clamp(14px, 2.4vw, 24px) 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.royalTitle {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  font-family: var(--heading-font), serif;
+  font-size: clamp(30px, 3.3vw, 46px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold, #d8b45c);
+  text-shadow: 0 0 12px rgba(216, 180, 92, 0.18), 0 6px 14px rgba(0, 0, 0, 0.32);
+  padding-inline: clamp(88px, 14vw, 188px);
+  z-index: 1;
+}
+
+.royalTitle::before,
+.royalTitle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: clamp(74px, 13vw, 170px);
+  height: 16px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, var(--royal-ribbon-start), var(--royal-ribbon-end));
+  border: 1px solid rgba(236, 208, 255, 0.34);
+  pointer-events: none;
+}
+
+.royalTitle::before {
+  right: calc(100% + 12px);
+  clip-path: polygon(0 50%, 10% 0, 100% 0, 100% 100%, 10% 100%);
+}
+
+.royalTitle::after {
+  left: calc(100% + 12px);
+  clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+}
+
+.royalDivider {
+  width: min(520px, 74%);
+  height: 1px;
+  margin: 12px auto 24px;
+  background: linear-gradient(90deg, transparent 0%, rgba(216, 180, 92, 0.85) 50%, transparent 100%);
+  box-shadow: 0 0 10px rgba(216, 180, 92, 0.26);
+  position: relative;
+  z-index: 1;
+}
+
+.wishesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.wishCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--wish-border);
+  background: var(--wish-surface);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+}
+
+.wishCard:hover,
+.wishCard:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--lavender, #a892d6);
+  background: var(--panel-strong, rgba(21, 17, 26, 0.9));
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.28), 0 0 14px rgba(168, 146, 214, 0.15);
+}
+
+.wishCard.read {
+  border-color: rgba(168, 146, 214, 0.6);
+  background: var(--panel-strong, rgba(21, 17, 26, 0.9));
+}
+
+.wishHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wishIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.wishAuthor {
+  font-family: var(--heading-font, serif);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gold, #d8b45c);
+}
+
+.wishContent {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--wish-text);
+  white-space: pre-line;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.reactionsContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.reactionBtn {
+  border: 1px solid rgba(168, 146, 214, 0.24);
+  border-radius: 999px;
+  background: rgba(168, 146, 214, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+.reactionBtn:hover {
+  border-color: rgba(168, 146, 214, 0.6);
+  background: rgba(168, 146, 214, 0.2);
+  transform: scale(1.05);
+}
+
+.reactionCount {
+  font-weight: bold;
+}
+
+/* Load More Button */
+.loadMoreBtn {
+  margin-top: 24px;
+  padding: 12px 32px;
+  font-family: var(--body-font);
+  font-size: 16px;
+  color: var(--cream);
+  background: rgba(168, 146, 214, 0.15);
+  border: 1px solid var(--lavender);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.loadMoreBtn:hover {
+  background: rgba(168, 146, 214, 0.3);
+  box-shadow: 0 0 15px rgba(168, 146, 214, 0.4);
+}
+
+/* Modal Popup */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background: var(--bg-deep);
+  border: 1px solid var(--lavender);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 146, 214, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideUp 0.3s ease;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  color: var(--cream);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.modalHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalIcon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.modalAuthor {
+  font-family: var(--heading-font, serif);
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--gold, #d8b45c);
+  text-align: center;
+}
+
+.modalText {
+  color: var(--cream);
+  font-size: 18px;
+  line-height: 1.8;
+  white-space: pre-line;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.modalReactions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.modalReactions .reactionBtn {
+  font-size: 16px;
+  padding: 6px 14px;
+}
+
+.completedMessage {
+  margin-top: 3rem;
+  color: var(--gold);
+  font-family: var(--mono-font);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
