@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gifts } from "../../data/gacha";
 import { achievements } from "../../data/achievements";
+import { journeyParts } from "../../data/journey";
 import { canSeeHiddenStarlog, getUnlockedAchievementCount } from "../../lib/achievements";
 import { AppState } from "../../lib/storage";
 import styles from "./StarlogDrawer.module.css";
@@ -60,7 +61,7 @@ export const StarlogDrawer = ({ open, state, onClose }: StarlogDrawerProps) => {
           <h3>Tiến Trình Hành Trình</h3>
           <p>Đã bắt đầu hành trình: {state.hasStarted ? "Rồi" : "Chưa"}</p>
           <p>Chặng hiện tại: {state.activePartId}</p>
-          <p>Các chặng đã qua: {state.completedParts.length}/5</p>
+          <p>Các chặng đã qua: {state.completedParts.length}/{journeyParts.length}</p>
           <p>
             Thành tựu đạt được: {getUnlockedAchievementCount(state)}/{achievements.length}
           </p>

@@ -12,20 +12,20 @@ export type GuideCharacter = {
 export const guides = {
   kagura: {
     id: "kagura",
-    name: "Kagura",
+    name: "Nhiên Anh",
     role: "Leader",
     color: "#D8B45C",
     align: "left",
-    placeholderLabel: "KAGURA",
+    placeholderLabel: "NHIEN ANH",
     quirk: "short, calm, authority",
   },
   imed: {
     id: "imed",
-    name: "Imed",
+    name: "Demi",
     role: "Coder / Sound / Writer",
     color: "#22314D",
     align: "left",
-    placeholderLabel: "IMED",
+    placeholderLabel: "DEMI",
     quirk: "writes, deletes, rewrites",
   },
   lilWayne: {
@@ -39,31 +39,31 @@ export const guides = {
   },
   kuro: {
     id: "kuro",
-    name: "Kuro",
+    name: "Mashiro",
     role: "Content / Event",
     color: "#9DB7A5",
     align: "right",
-    placeholderLabel: "KURO",
+    placeholderLabel: "MASHIRO",
     quirk: "slow, observant, long pauses",
   },
   nova: {
     id: "nova",
-    name: "Nova",
+    name: "Ren Phạm",
     role: "Evaluator",
     color: "#E58D7A",
     align: "right",
-    placeholderLabel: "NOVA",
+    placeholderLabel: "REN PHAM",
     quirk: "deadpan analytical dry humor",
   },
   stone: {
     id: "stone",
-    name: "Stone",
+    name: "Akatsuki Đập đá",
     role: "Animator",
     color: "#A892D6",
     align: "left",
-    placeholderLabel: "STONE",
+    placeholderLabel: "AKATSUKI",
     quirk: "few words, deep feeling",
   },
 } satisfies Record<string, GuideCharacter>;
 
-export const guideList = Object.values(guides);
+export const guideList: GuideCharacter[] = Object.values(guides);

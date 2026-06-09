@@ -1,65 +1,34 @@
 import { useEffect, useRef } from "react";
 import { StarfieldCanvas } from "../components/Starfield/StarfieldCanvas";
-import { GuideCharacter, guides } from "../data/guides";
+import { guideList } from "../data/guides";
 import { SectionProps } from "./sectionTypes";
 
-const allSpeaker: GuideCharacter = {
-  id: "all",
-  name: "Tất cả",
-  role: "Chorus",
-  color: "#F1E7D8",
-  align: "center",
-  placeholderLabel: "ALL",
-  quirk: "together",
-};
-
-const finaleScenes: Array<{ speaker: GuideCharacter; line: string }> = [
-  { speaker: guides.kagura, line: "4 năm." },
-  { speaker: guides.imed, line: "Vô số câu chuyện." },
-  { speaker: guides.lilWayne, line: "Nhiều hơn chúng tôi có thể viết hết." },
-  { speaker: guides.kuro, line: "Nhiều hơn chúng tôi có thể tổ chức hết." },
-  { speaker: guides.nova, line: "Nhiều hơn chúng tôi có thể đo được." },
-  { speaker: guides.stone, line: "Nhiều hơn chúng tôi có thể vẽ hết." },
-  { speaker: allSpeaker, line: "Chúc mừng, Linh Lan và Lan Linh." },
-  { speaker: allSpeaker, line: "Hẹn gặp lại ở năm thứ 8. ✦" },
+const productionCredits = [
+  { label: "Anniversary VTubers", names: "Linh Lan / Lan Linh" },
+  ...guideList.map((member) => ({ label: member.role, names: member.name })),
+  { label: "Special Thanks", names: "Những vì sao đã dẫn đường" },
+  { label: "Presented by", names: "LL Team" },
 ];
 
 export const Finale = ({
   state,
   setState,
   completePart,
-  requestDialogue,
-  markDialogueSeen,
-  hasSeenDialogue,
   isActive,
   isCompleted,
   openStarlog,
 }: SectionProps) => {
-  const hasQueuedIntroRef = useRef(false);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
-    const dialogueId = "dialogue:finale:queue";
-    if (!isActive || hasSeenDialogue(dialogueId) || hasQueuedIntroRef.current) {
-      return;
+    if (!isActive || isCompleted || hasCompletedRef.current) {
+      return undefined;
     }
 
-    hasQueuedIntroRef.current = true;
-    markDialogueSeen(dialogueId);
-    finaleScenes.forEach((scene, index) => {
-      requestDialogue({
-        speaker: scene.speaker,
-        lines: [scene.line],
-        align: scene.speaker.align,
-        mood: scene.speaker.id === "all" ? "intimate" : "soft",
-        onComplete:
-          index === finaleScenes.length - 1 && !isCompleted
-            ? () => {
-                completePart("finale");
-              }
-            : undefined,
-      });
-    });
-  }, [completePart, hasSeenDialogue, isActive, isCompleted, markDialogueSeen, requestDialogue]);
+    hasCompletedRef.current = true;
+    const timeout = window.setTimeout(() => completePart("finale"), 21000);
+    return () => window.clearTimeout(timeout);
+  }, [completePart, isActive, isCompleted]);
 
   const handleRewatch = () => {
     setState((previous) => ({
@@ -72,16 +41,44 @@ export const Finale = ({
   };
 
   return (
-    <div className="partStack">
+    <div className="partStack finaleCreditsStack">
       <div className="finaleSky">
         <StarfieldCanvas unlockedStars={state.unlockedStars} bright />
       </div>
-      <div className="finalePanel">
-        <span>FOUR YEARS, TWO STARS</span>
-        <h2>IV YEARS</h2>
-        <p>Linh Lan × Lan Linh</p>
-        <p>20.08.2022 → 20.08.2026</p>
+
+      <section className="creditScreen" aria-label="Final credits">
+        <div className="creditRoll">
+          <div className="creditTitle">
+            <span>FOUR YEARS, TWO STARS</span>
+            <h2>IV YEARS</h2>
+            <p>Linh Lan x Lan Linh</p>
+            <p>20.08.2022 -&gt; 20.08.2026</p>
+          </div>
+
+          {productionCredits.map((credit) => (
+            <article className="creditLine" key={`${credit.label}-${credit.names}`}>
+              <span>{credit.label}</span>
+              <strong>{credit.names}</strong>
+            </article>
+          ))}
+
+          <div className="creditTitle creditEnd">
+            <span>END SIGNAL</span>
+            <h2>Hẹn gặp lại ở năm thứ 8</h2>
+            <p>Chúc mừng, Linh Lan và Lan Linh.</p>
+          </div>
+        </div>
+      </section>
+
+      <div className="finalePanel finaleControls">
+        <span>{isCompleted ? "CREDIT COMPLETE" : "CREDIT ROLLING"}</span>
+        <p>Credit đang chạy như phần kết của một cuốn phim nhỏ.</p>
         <div className="buttonRow">
+          {!isCompleted ? (
+            <button type="button" onClick={() => completePart("finale")}>
+              Skip Credits
+            </button>
+          ) : null}
           <button type="button" onClick={handleRewatch}>
             Rewatch Tape
           </button>

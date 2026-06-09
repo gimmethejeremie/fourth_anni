@@ -5,16 +5,29 @@ export type SectionId =
   | "vhs"
   | "constellation"
   | "moonphase"
+  | "vtuberArt"
   | "scrapbook"
   | "tarot"
   | "gacha"
   | "cipher"
   | "wishes"
   | "letters"
+  | "teamGallery"
   | "starlog"
   | "finale";
 
-export type PartId = "constellation" | "moonphase" | "scrapbook" | "tarot" | "gacha" | "cipher" | "wishes" | "letters" | "finale";
+export type PartId =
+  | "constellation"
+  | "moonphase"
+  | "vtuberArt"
+  | "scrapbook"
+  | "tarot"
+  | "gacha"
+  | "cipher"
+  | "wishes"
+  | "letters"
+  | "teamGallery"
+  | "finale";
 export type JourneyPartStatus = "locked" | "active" | "completed";
 
 export type ArrivalYear = "2022" | "2023" | "2024" | "2025_2026";
@@ -115,6 +128,12 @@ export const normalizeStoredState = (value: Partial<AppState> | null): AppState 
     completedParts.includes("constellation") &&
     !completedParts.includes("moonphase") &&
     !completedParts.includes("scrapbook");
+
+  const shouldInsertVtuberArt =
+    value.hasStarted &&
+    completedParts.includes("moonphase") &&
+    !completedParts.includes("vtuberArt") &&
+    !completedParts.includes("scrapbook");
     
   const shouldInsertCipher =
     value.hasStarted &&
@@ -131,12 +150,21 @@ export const normalizeStoredState = (value: Partial<AppState> | null): AppState 
     completedParts.includes("wishes") && 
     !completedParts.includes("letters");
 
+  const shouldInsertTeamGallery =
+    value.hasStarted &&
+    completedParts.includes("letters") &&
+    !completedParts.includes("teamGallery") &&
+    !completedParts.includes("finale");
+
   let activePartId = value.activePartId ?? "constellation";
   let currentSection = value.currentSection ?? (value.hasStarted ? "constellation" : "vhs");
 
   if (shouldInsertMoonPhase) {
     activePartId = "moonphase";
     currentSection = "moonphase";
+  } else if (shouldInsertVtuberArt) {
+    activePartId = "vtuberArt";
+    currentSection = "vtuberArt";
   } else if (shouldInsertCipher) {
     activePartId = "cipher";
     currentSection = "cipher";
@@ -146,6 +174,9 @@ export const normalizeStoredState = (value: Partial<AppState> | null): AppState 
   } else if (shouldInsertLetters) {
     activePartId = "letters";
     currentSection = "letters";
+  } else if (shouldInsertTeamGallery) {
+    activePartId = "teamGallery";
+    currentSection = "teamGallery";
   }
 
   return {

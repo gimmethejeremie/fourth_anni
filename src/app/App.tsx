@@ -21,12 +21,14 @@ import { DialogueOverlayRequest, SectionProps } from "../sections/sectionTypes";
 import { Finale } from "../sections/Finale";
 import { Gacha } from "../sections/Gacha";
 import { MoonPhase } from "../sections/MoonPhase";
+import { VtuberArt } from "../sections/VtuberArt";
 import { Scrapbook } from "../sections/Scrapbook";
 import { TapeIntro } from "../sections/TapeIntro";
 import { Tarot } from "../sections/Tarot";
 import { SecretCipher } from "../sections/SecretCipher";
 import { Wishes } from "../sections/Wishes";
 import { Letters } from "../sections/Letters";
+import { TeamGallery } from "../sections/TeamGallery";
 import { MinigamesHub } from "../minigames/MinigamesHub";
 import "../sections/sections.css";
 import styles from "./App.module.css";
@@ -34,12 +36,14 @@ import styles from "./App.module.css";
 const partComponentMap = {
   constellation: Constellation,
   moonphase: MoonPhase,
+  vtuberArt: VtuberArt,
   scrapbook: Scrapbook,
   tarot: Tarot,
   gacha: Gacha,
   cipher: SecretCipher,
   wishes: Wishes,
   letters: Letters,
+  teamGallery: TeamGallery,
   finale: Finale,
 } satisfies Record<PartId, ComponentType<SectionProps>>;
 
@@ -118,15 +122,15 @@ export const App = () => {
     };
     const introDialogues: DialogueOverlayRequest[] = [
       { speaker: guides.kagura, lines: ["Xin chào, chúng tớ là LL Team"], mood: "soft" },
-      { speaker: guides.kagura, lines: ["Tớ tên là Kagura, rất vui được chào hai cậu, tớ là leader của LL Team"], mood: "soft" },
-      { speaker: guides.imed, lines: ["Tớ là Imed, phụ trách code, âm thanh và content của game."], mood: "soft" },
+      { speaker: guides.kagura, lines: ["Tớ tên là Nhiên Anh, rất vui được chào hai cậu, tớ là leader của LL Team"], mood: "soft" },
+      { speaker: guides.imed, lines: ["Tớ là Demi, phụ trách code, âm thanh và content của game."], mood: "soft" },
       { speaker: guides.lilWayne, lines: ["Lô. Bổn tôn là Lil'Wayne. Bổn tôn làm bố ở đây."], mood: "funny" },
       { speaker: guides.nova, lines: ["Nói cái gì thế, đứa nào đánh nó một phát coi"], mood: "funny" },
       { speaker: guides.lilWayne, lines: ["Á thôi thôi, tớ là Lil'Wayne, code chơi chơi mấy cái vui vui hoặc đôi lúc chả vui lắm"], mood: "funny" },
       { speaker: guides.lilWayne, lines: ["Nhớ mặt đấy"], mood: "funny" },
-      { speaker: guides.kuro, lines: ["Còn tớ là Kuro, tớ lo phần nội dung và quản mấy nhóc này khỏi làm loạn."], mood: "soft" },
-      { speaker: guides.nova, lines: ["Đây là Nova, nhớ lấy. Đây phụ trách kiểm tra mọi thứ xem có ổn không."], mood: "serious" },
-      { speaker: guides.stone, lines: ["Tớ là Stone, người thổi chuyển động vào những cảnh mà các cậu sắp đi qua."], mood: "soft" },
+      { speaker: guides.kuro, lines: ["Còn tớ là Mashiro, tớ lo phần nội dung và quản mấy nhóc này khỏi làm loạn."], mood: "soft" },
+      { speaker: guides.nova, lines: ["Đây là Ren Phạm, nhớ lấy. Đây phụ trách kiểm tra mọi thứ xem có ổn không."], mood: "serious" },
+      { speaker: guides.stone, lines: ["Tớ là Akatsuki Đập đá, người thổi chuyển động vào những cảnh mà các cậu sắp đi qua."], mood: "soft" },
       { speaker: guides.kagura, lines: ["Chúng tớ có sứ mệnh là sẽ dẫn dắt các cậu tìm tới ý nghĩa của con đường này"], mood: "mysterious" },
       { speaker: guides.nova, lines: ["Cơ mà, do những thế lực hắc ám, chúng tớ không thể trực tiếp tác động lên những thử thách mà cậu sẽ phải vượt qua."], mood: "serious" },
       { speaker: guides.kagura, lines: ["Chúng ta sẽ cùng đến với thử thách đầu tiên nhé?"], mood: "soft" },
@@ -281,7 +285,7 @@ export const App = () => {
       ) : null}
 
       <StarlogDrawer open={starlogOpen} state={state} onClose={() => setStarlogOpen(false)} />
-      <AchievementToast title={toast?.title} />
+      <AchievementToast id={toast?.id} title={toast?.title} />
     </div>
   );
 };

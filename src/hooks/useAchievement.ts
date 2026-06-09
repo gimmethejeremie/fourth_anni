@@ -43,7 +43,7 @@ export const useAchievement = (
       return undefined;
     }
 
-    const timeout = window.setTimeout(() => setToast(null), 3200);
+    const timeout = window.setTimeout(() => setToast(null), 4200);
     return () => window.clearTimeout(timeout);
   }, [toast]);
 

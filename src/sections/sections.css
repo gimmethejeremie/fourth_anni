@@ -1853,6 +1853,282 @@
   text-align: left;
 }
 
+.artShowcaseStack,
+.teamGalleryStack,
+.finaleCreditsStack {
+  position: relative;
+  isolation: isolate;
+}
+
+.artShowcaseStack::before,
+.teamGalleryStack::before,
+.finaleCreditsStack::before {
+  position: absolute;
+  inset: -3rem -2rem 12%;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 16% 18%, rgba(232, 169, 200, 0.12), transparent 13rem),
+    radial-gradient(circle at 86% 22%, rgba(216, 180, 92, 0.1), transparent 15rem),
+    linear-gradient(180deg, rgba(8, 10, 18, 0.14), transparent 72%);
+}
+
+.artShowcaseIntro,
+.teamGalleryIntro {
+  display: grid;
+  gap: 0.48rem;
+  max-width: 760px;
+}
+
+.artShowcaseIntro span,
+.teamGalleryIntro span,
+.vtuberArtCaption span,
+.teamPhotoCard span,
+.teamGalleryGroupFrame span,
+.creditTitle span,
+.creditLine span {
+  color: var(--gold);
+  font-family: var(--mono-font);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+}
+
+.artShowcaseIntro h2,
+.teamGalleryIntro h2,
+.creditTitle h2 {
+  margin: 0;
+  color: var(--cream);
+  font-family: var(--heading-font);
+  font-size: clamp(2rem, 4.8vw, 4.4rem);
+  font-weight: 500;
+  line-height: 0.96;
+}
+
+.artShowcaseIntro p,
+.teamGalleryIntro p,
+.vtuberArtCaption p,
+.teamGalleryGroupFrame p,
+.creditTitle p {
+  margin: 0;
+  color: rgba(241, 231, 216, 0.72);
+  line-height: 1.65;
+}
+
+.vtuberArtGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 1.6rem);
+}
+
+.vtuberArtCard,
+.teamPhotoCard,
+.teamGalleryGroupFrame,
+.creditScreen {
+  border: 1px solid rgba(241, 231, 216, 0.13);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(241, 231, 216, 0.07), transparent 12rem),
+    rgba(13, 17, 32, 0.62);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.vtuberArtCard {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(0.85rem, 2vw, 1.1rem);
+}
+
+.vtuberArtFrame {
+  position: relative;
+  min-height: clamp(360px, 56vh, 620px);
+  overflow: hidden;
+  border: 1px solid rgba(216, 180, 92, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 18, 0.14), rgba(8, 10, 18, 0.72)),
+    url('/cosmos-bg.png') center/cover no-repeat;
+}
+
+.vtuberArtFrame img,
+.teamPhotoFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vtuberArtPlaceholder,
+.teamPhotoPlaceholder {
+  display: grid;
+  height: 100%;
+  min-height: inherit;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.vtuberArtPlaceholder {
+  align-content: center;
+  gap: 0.5rem;
+}
+
+.vtuberArtPlaceholder span {
+  color: rgba(216, 180, 92, 0.78);
+  font-family: var(--mono-font);
+  font-size: 0.78rem;
+}
+
+.vtuberArtPlaceholder strong {
+  color: rgba(241, 231, 216, 0.9);
+  font-family: var(--heading-font);
+  font-size: clamp(2.2rem, 7vw, 5.2rem);
+  font-weight: 500;
+  line-height: 0.92;
+}
+
+.vtuberArtCaption {
+  display: grid;
+  gap: 0.36rem;
+}
+
+.vtuberArtCaption h3,
+.teamPhotoCard h3 {
+  margin: 0;
+  color: var(--cream);
+  font-family: var(--heading-font);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.teamPhotoWall {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.15rem);
+}
+
+.teamPhotoCard {
+  display: grid;
+  gap: 0.78rem;
+  min-width: 0;
+  padding: 0.82rem;
+}
+
+.teamPhotoFrame {
+  height: clamp(150px, 22vw, 240px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--member-color, var(--gold)) 42%, transparent);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--member-color, var(--gold)) 20%, transparent), transparent 7rem),
+    rgba(8, 10, 18, 0.72);
+}
+
+.teamPhotoPlaceholder {
+  color: color-mix(in srgb, var(--member-color, var(--gold)) 76%, var(--cream));
+  font-family: var(--mono-font);
+  font-size: clamp(0.82rem, 2vw, 1rem);
+  overflow-wrap: anywhere;
+}
+
+.teamGalleryGroupFrame {
+  display: grid;
+  min-height: clamp(220px, 34vh, 340px);
+  place-items: center;
+  gap: 0.45rem;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  text-align: center;
+}
+
+.teamGalleryGroupFrame strong {
+  color: var(--cream);
+  font-family: var(--heading-font);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.creditScreen {
+  position: relative;
+  height: min(74vh, 720px);
+  min-height: 520px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 18, 0.98), rgba(8, 10, 18, 0.72) 45%, rgba(8, 10, 18, 0.98)),
+    url('/cosmos-bg.png') center/cover no-repeat;
+}
+
+.creditScreen::before,
+.creditScreen::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 22%;
+  pointer-events: none;
+  content: "";
+}
+
+.creditScreen::before {
+  top: 0;
+  background: linear-gradient(180deg, rgba(8, 10, 18, 1), transparent);
+}
+
+.creditScreen::after {
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(8, 10, 18, 1), transparent);
+}
+
+.creditRoll {
+  display: grid;
+  justify-items: center;
+  gap: clamp(2rem, 6vh, 4.4rem);
+  min-height: 100%;
+  padding: 72vh clamp(1rem, 4vw, 2rem) 50vh;
+  text-align: center;
+  animation: creditRoll 21s linear both;
+}
+
+.creditTitle {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+}
+
+.creditLine {
+  display: grid;
+  gap: 0.42rem;
+  justify-items: center;
+}
+
+.creditLine strong {
+  color: var(--cream);
+  font-family: var(--heading-font);
+  font-size: clamp(1.55rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.creditEnd {
+  padding-top: 4vh;
+}
+
+.finaleControls {
+  width: min(760px, 100%);
+}
+
+@keyframes creditRoll {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
 @keyframes giftPop {
   0% {
     transform: scale(0.96) rotate(-1deg);
@@ -1915,6 +2191,7 @@
   .scrapbookSpread,
   .tarotResultCard,
   .tarotCardText,
+  .creditRoll,
   .isOpen .giftBox,
   .confetti {
     transform: none !important;
@@ -1924,6 +2201,7 @@
 
 @media (max-width: 840px) {
   .moonPhaseCards,
+  .vtuberArtGrid,
   .tarotReadingModule,
   .tarotSpread,
   .starlogSectionGrid,
@@ -1971,6 +2249,10 @@
 
   .moonPhaseCard {
     grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+  }
+
+  .teamPhotoWall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2025,6 +2307,18 @@
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .teamPhotoWall {
+    grid-template-columns: 1fr;
+  }
+
+  .vtuberArtFrame {
+    min-height: 320px;
+  }
+
+  .creditScreen {
+    min-height: 460px;
   }
 
   .moonPhaseImage {

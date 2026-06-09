@@ -38,12 +38,18 @@ export const CursorTrail = () => {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = rect.width;
       height = rect.height;
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const scheduleRender = () => {
+      if (frame === 0) {
+        frame = window.requestAnimationFrame(render);
+      }
     };
 
     const handlePointerMove = (event: PointerEvent) => {
@@ -59,9 +65,11 @@ export const CursorTrail = () => {
         createdAt: now,
         size: 2 + Math.random() * 2.8,
       });
+      scheduleRender();
     };
 
     const render = () => {
+      frame = 0;
       const now = performance.now();
       context.clearRect(0, 0, width, height);
       particlesRef.current = particlesRef.current.filter((particle) => now - particle.createdAt < TRAIL_DURATION_MS);
@@ -77,16 +85,19 @@ export const CursorTrail = () => {
         context.fill();
       }
 
-      frame = window.requestAnimationFrame(render);
+      if (particlesRef.current.length > 0) {
+        scheduleRender();
+      }
     };
 
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    frame = window.requestAnimationFrame(render);
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      if (frame !== 0) {
+        window.cancelAnimationFrame(frame);
+      }
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", handlePointerMove);
     };

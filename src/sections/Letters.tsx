@@ -44,7 +44,7 @@ export const Letters = ({
     completePart("letters");
     requestDialogue({
       speaker: guides.kagura,
-      lines: ["Vậy là tín hiệu cuối cùng đã được mở khóa. Hãy đi đến điểm kết thúc nhé."],
+      lines: ["Vậy là thư đã đủ rồi. Trước hồi kết, hãy ghé qua khung ảnh của cả team nhé."],
       mood: "soft",
     });
   };
@@ -118,7 +118,7 @@ export const Letters = ({
 
       {isCompleted && (
         <div className={styles.completedMessage}>
-          Đã nhận được toàn bộ thư. Con đường đến Hồi Kết đã mở ra.
+          Đã nhận được toàn bộ thư. Con đường đến khung ảnh team đã mở ra.
         </div>
       )}
 

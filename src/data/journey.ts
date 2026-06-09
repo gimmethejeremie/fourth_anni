@@ -21,6 +21,12 @@ export const journeyParts: JourneyPartConfig[] = [
     requiredAchievement: "moon_phase_seen",
   },
   {
+    id: "vtuberArt",
+    title: "VTuber Art",
+    subtitle: "Một khoảng trưng bày dành riêng cho hai VTuber của ngày kỷ niệm.",
+    requiredAchievement: "vtuber_art_seen",
+  },
+  {
     id: "scrapbook",
     title: "Sổ Lưu Bút Ký Ức",
     subtitle: "Lật mở qua bốn chương giấy kỷ niệm.",
@@ -57,6 +63,12 @@ export const journeyParts: JourneyPartConfig[] = [
     requiredAchievement: "letters_read",
   },
   {
+    id: "teamGallery",
+    title: "Team Gallery",
+    subtitle: "Một khung ảnh chung cho toàn bộ thành viên đứng sau món quà này.",
+    requiredAchievement: "team_gallery_seen",
+  },
+  {
     id: "finale",
     title: "Hồi Kết",
     subtitle: "Tín hiệu cuối cùng chỉ mở ra khi mọi thứ đã được đọc.",
@@ -67,12 +79,14 @@ export const journeyParts: JourneyPartConfig[] = [
 export const partAchievementMap: Record<PartId, string> = {
   constellation: "constellation_touched",
   moonphase: "moon_phase_seen",
+  vtuberArt: "vtuber_art_seen",
   scrapbook: "scrapbook_opened",
   tarot: "tarot_reading",
   gacha: "gift_drawn",
   cipher: "cipher_completed",
   wishes: "wishes_read",
   letters: "letters_read",
+  teamGallery: "team_gallery_seen",
   finale: "finale_reached",
 };
 

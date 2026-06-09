@@ -56,6 +56,12 @@ export const achievements: Achievement[] = [
     tier: "main",
   },
   {
+    id: "vtuber_art_seen",
+    title: "Khung Art Đã Sáng",
+    description: "Art dành cho hai VTuber đã được đặt vào khoảng trời riêng.",
+    tier: "main",
+  },
+  {
     id: "tarot_reading",
     title: "Trải Bài Tarot",
     description: "Ba lá bài ghi nhớ lại con đường đã qua.",
@@ -65,6 +71,30 @@ export const achievements: Achievement[] = [
     id: "gift_drawn",
     title: "Tín Hiệu Quà Tặng",
     description: "Một món quà nhỏ vừa rơi ra từ cỗ máy ký ức.",
+    tier: "main",
+  },
+  {
+    id: "cipher_completed",
+    title: "Mật Mã Đã Mở",
+    description: "Tín hiệu bí mật đã được giải mã để mở đường đến những lời chúc.",
+    tier: "main",
+  },
+  {
+    id: "wishes_read",
+    title: "Lời Chúc Đã Đến",
+    description: "Những ánh sao từ fan đã được đọc và giữ lại trong hành trình.",
+    tier: "main",
+  },
+  {
+    id: "letters_read",
+    title: "Thư Đội Ngũ",
+    description: "Những lá thư từ các thành viên LL Team đã được mở.",
+    tier: "main",
+  },
+  {
+    id: "team_gallery_seen",
+    title: "Ảnh Team Đã Ghim",
+    description: "Toàn bộ thành viên đã được đặt vào cùng một khung ảnh trước hồi kết.",
     tier: "main",
   },
   {

@@ -130,7 +130,7 @@ export const MoonPhase = ({
 
         {!isCompleted ? (
           <button className="primaryAction" type="button" onClick={() => completePart("moonphase")}>
-            Mở Scrapbook
+            Xem VTuber Art
           </button>
         ) : null}
       </section>
