@@ -93,6 +93,10 @@ export const App = () => {
   const lastAmbientDialogueIdRef = useRef<string | null>(null);
   const lastAmbientDialogueAtRef = useRef(0);
 
+  const requestDialogue = useCallback((dialogue: DialogueOverlayRequest) => {
+    setDialogueQueue((previous) => [...previous, dialogue]);
+  }, []);
+
   const { increaseAffinity } = useAffinity(state, setState, requestDialogue);
 
   useEffect(() => {
@@ -114,9 +118,7 @@ export const App = () => {
     }));
   }, [setState]);
 
-  const requestDialogue = useCallback((dialogue: DialogueOverlayRequest) => {
-    setDialogueQueue((previous) => [...previous, dialogue]);
-  }, []);
+
 
   const closeActiveDialogue = useCallback(() => {
     setDialogueQueue((previous) => previous.slice(1));
