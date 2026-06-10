@@ -95,13 +95,22 @@ export const Scrapbook = ({
   };
 
   const handleContinueToTarot = () => {
-    if (!isCompleted) {
-      completePart("scrapbook");
-    }
-
-    window.setTimeout(() => {
-      document.getElementById("tarot")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+    requestDialogue({
+      speaker: guides.anChi,
+      lines: [
+        "Ký ức là một con đường. Bạn đã đi qua nó rồi.",
+        "Bây giờ, hãy xem những gì vũ trụ muốn nói với bạn."
+      ],
+      mood: "intimate",
+      onComplete: () => {
+        if (!isCompleted) {
+          completePart("scrapbook");
+        }
+        window.setTimeout(() => {
+          document.getElementById("tarot")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    });
   };
 
   const handleWheel = (e: React.WheelEvent) => {

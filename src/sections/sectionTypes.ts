@@ -8,6 +8,7 @@ export type DialogueOverlayRequest = {
   align?: "left" | "right" | "center";
   mood?: "neutral" | "soft" | "serious" | "funny" | "mysterious" | "intimate";
   dimBackground?: boolean;
+  skipLabel?: string;
   onComplete?: () => void;
 };
 

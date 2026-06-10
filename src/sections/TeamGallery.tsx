@@ -25,8 +25,33 @@ export const TeamGallery = ({
       speaker: guides.kagura,
       lines: [
         "Trước hồi kết, tụi tớ muốn gom cả team vào cùng một khung hình.",
-        "Dù mỗi người phụ trách một phần khác nhau, món quà này là tín hiệu chung của tất cả.",
+        "Dù mỗi người phụ trách một phần khác nhau, món quà này là tín hiệu chung của tất cả."
       ],
+      mood: "soft",
+    });
+    requestDialogue({
+      speaker: guides.nova,
+      lines: ["Đội hình đầy đủ, không thiếu một ai."],
+      mood: "soft",
+    });
+    requestDialogue({
+      speaker: guides.imed,
+      lines: ["Cuối cùng cũng xong cái project này..."],
+      mood: "funny",
+    });
+    requestDialogue({
+      speaker: guides.lilWayne,
+      lines: ["Nhớ cảm ơn tao đấy nhé!"],
+      mood: "funny",
+    });
+    requestDialogue({
+      speaker: guides.anChi,
+      lines: ["Tín hiệu sắp khép lại rồi. Hai cậu sẵn sàng chưa?"],
+      mood: "intimate",
+    });
+    requestDialogue({
+      speaker: guides.kuro,
+      lines: ["Tạm biệt nhé. Và chúc mừng kỷ niệm 4 năm!"],
       mood: "soft",
     });
   }, [hasSeenDialogue, isActive, markDialogueSeen, requestDialogue]);

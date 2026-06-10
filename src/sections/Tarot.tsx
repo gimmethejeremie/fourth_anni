@@ -140,7 +140,27 @@ export const Tarot = ({
       <TarotReading onReadingComplete={handleReadingComplete} />
       {readingFinished && !isCompleted && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem', position: 'relative', zIndex: 10 }}>
-          <button className="primaryAction" onClick={() => completePart("tarot")}>
+          <button 
+            className="primaryAction" 
+            onClick={() => {
+              requestDialogue({
+                speaker: guides.lilWayne,
+                lines: [
+                  "Và bây giờ... một tin nhắn từ nhà tài trợ.",
+                  "Bạn đã bao giờ muốn... có thêm charm chưa?",
+                  "Disclaimer: không tốn tiền thật, chỉ tốn công bắt sao."
+                ],
+                mood: "funny",
+                skipLabel: "Bỏ qua quảng cáo",
+                onComplete: () => {
+                  completePart("tarot");
+                  window.setTimeout(() => {
+                    document.getElementById("gacha")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }, 100);
+                }
+              });
+            }}
+          >
             Tiến tới tương lai ✦
           </button>
         </div>

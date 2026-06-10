@@ -1,0 +1,33 @@
+.whisperContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.whisperText {
+  font-family: var(--body-font, sans-serif);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: whisperFadeInOut 3s ease forwards;
+}
+
+.whisper1 { animation-delay: 0.5s; align-self: flex-start; margin-left: 20%; }
+.whisper2 { animation-delay: 2s; align-self: flex-end; margin-right: 20%; }
+.whisper3 { animation-delay: 3.5s; align-self: center; }
+
+@keyframes whisperFadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}

@@ -29,6 +29,7 @@ export const Constellation = ({
   const [toastNote, setToastNote] = useState<{ id: string, text: string, x: number, y: number } | null>(null);
   const [showCompletionPrompt, setShowCompletionPrompt] = useState(false);
   const [showAllStarsPopup, setShowAllStarsPopup] = useState(false);
+  const [isZoomingOut, setIsZoomingOut] = useState(false);
   const choseToStay = useRef(false);
   const watcherUnlocked = hasAchievement(state, "watcher");
   const foundSummerStars = summerTriangleIds.filter((id) =>
@@ -143,8 +144,15 @@ export const Constellation = ({
     }
   };
 
+  const handleComplete = () => {
+    setIsZoomingOut(true);
+    setTimeout(() => {
+      completePart("constellation");
+    }, 4000);
+  };
+
   return (
-    <div className="partStack constellationStack">
+    <div className={`partStack constellationStack ${isZoomingOut ? "zoomingOut" : ""}`}>
       <div className="skyObservationLayout">
         <div className={`constellationStage ${showGrid ? "hasGrid" : ""}`}>
           <StarfieldCanvas unlockedStars={state.unlockedStars} onStarClick={handleStarClick} />
@@ -205,7 +213,7 @@ export const Constellation = ({
                 <strong>Tam giác đã nối xong</strong>
                 <p>Khám phá phần còn lại của bầu trời hoặc nhấn Tiếp tục khi đã sẵn sàng.</p>
                 {!isCompleted && (choseToStay.current || state.unlockedStars.length >= 20) ? (
-                  <button className="readMoreBtn" onClick={() => completePart("constellation")} style={{ marginTop: "0.5rem" }}>
+                  <button className="readMoreBtn" onClick={handleComplete} style={{ marginTop: "0.5rem" }} disabled={isZoomingOut}>
                     Chuyển sang phần tiếp theo
                   </button>
                 ) : null}
@@ -287,8 +295,8 @@ export const Constellation = ({
               </button>
               <button className="readMoreBtn" onClick={() => {
                 setShowCompletionPrompt(false);
-                completePart("constellation");
-              }} style={{ background: "rgba(216, 180, 92, 0.2)" }}>
+                handleComplete();
+              }} style={{ background: "rgba(216, 180, 92, 0.2)" }} disabled={isZoomingOut}>
                 Đi tiếp
               </button>
             </div>

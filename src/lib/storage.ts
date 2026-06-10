@@ -84,6 +84,7 @@ export type AppState = {
   quizFails: number;
   gachaTickets: number; // Tạm giữ để tương thích, không còn dùng
   minigameRecords: Record<string, { plays: number; wins: number }>;
+  hasSeenGuidedTour: boolean;
 };
 
 export const STORAGE_KEY = "four-years-two-stars:v4";
@@ -118,6 +119,7 @@ export const createInitialState = (): AppState => ({
     signalRepairCoop: { plays: 0, wins: 0 },
     balanceCoop: { plays: 0, wins: 0 },
   },
+  hasSeenGuidedTour: false,
 });
 
 export const normalizeStoredState = (value: Partial<AppState> | null): AppState => {
@@ -214,5 +216,6 @@ export const normalizeStoredState = (value: Partial<AppState> | null): AppState 
     minigameRecords: typeof value.minigameRecords === "object" && value.minigameRecords !== null
       ? (value.minigameRecords as Record<string, { plays: number; wins: number }>)
       : base.minigameRecords,
+    hasSeenGuidedTour: typeof value.hasSeenGuidedTour === "boolean" ? value.hasSeenGuidedTour : false,
   };
 };

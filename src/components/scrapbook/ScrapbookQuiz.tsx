@@ -58,6 +58,7 @@ export const ScrapbookQuiz = ({
           "Mất sạch",
         ],
         mood: "mysterious",
+        skipLabel: "Lil'Wayne im đi cho tôi thi",
       },
       {
         speaker: guides.nova,
@@ -107,13 +108,11 @@ export const ScrapbookQuiz = ({
     requestDialogue({
       speaker: guides.lilWayne,
       lines: [
-        "Thật luôn...",
-        "Tôi đã cho mấy người đủ cơ hội rồi.",
-        "Tạm biệt."
+        "Thôi... về ôn bài đi bạn ơi 😐",
       ],
-      mood: "serious",
+      mood: "funny",
       onComplete: () => {
-        // Do nothing automatically, wait for user to click Chơi lại
+        // Do nothing automatically, wait for user to click Cho tôi thử lại
       }
     });
   };
@@ -151,10 +150,27 @@ export const ScrapbookQuiz = ({
   const handleNext = () => {
     if (feedback?.type === "correct") {
       if (currentIndex === 4) {
-        setState((prev) => ({
-          ...prev,
-          scrapbookUnlocked: true
-        }));
+        requestDialogue({
+          speaker: guides.kagura,
+          lines: ["Ổn đó 👏"],
+          mood: "soft",
+        });
+        requestDialogue({
+          speaker: guides.imed,
+          lines: ["Tôi biết mà!"],
+          mood: "soft",
+        });
+        requestDialogue({
+          speaker: guides.lilWayne,
+          lines: ["...may."],
+          mood: "funny",
+          onComplete: () => {
+            setState((prev) => ({
+              ...prev,
+              scrapbookUnlocked: true
+            }));
+          }
+        });
       } else {
         setCurrentIndex((prev) => prev + 1);
         setInputText("");
@@ -203,17 +219,19 @@ export const ScrapbookQuiz = ({
       <div className={styles.quizContainer}>
         {gameFailed ? (
           <div className={styles.feedbackContainer} style={{ background: 'transparent', border: 'none' }}>
-            <h1 style={{ color: '#ff6b6b', letterSpacing: '4px', margin: '0 0 1rem 0', fontSize: '2.5rem' }}>MISSION FAILED</h1>
-            <p className={styles.feedbackMessage}>Bạn đã phạm lỗi quá số lần quy định. Các dữ liệu sẽ bị niêm phong.</p>
+            <h1 style={{ color: '#d8b45c', letterSpacing: '4px', margin: '0 0 1rem 0', fontSize: '2.5rem' }}>THỬ THÁCH THẤT BẠI</h1>
+            <div style={{ fontSize: '4rem', margin: '1rem 0' }}>🧹</div>
+            <p className={styles.feedbackMessage}>Lil'Wayne đang quét dọn mớ hỗn độn của bạn.</p>
             <button 
               className={`${styles.nextButton} ${styles.wrong}`}
-              style={{ marginTop: '2rem' }}
+              style={{ marginTop: '2rem', borderColor: '#d8b45c', color: '#d8b45c' }}
               onClick={() => {
-                window.localStorage.removeItem("four-years-two-stars:v4");
-                window.location.reload();
+                setState(prev => ({ ...prev, quizFails: 0 }));
+                setGameFailed(false);
+                setCurrentRun([]);
               }}
             >
-              Chơi lại từ đầu
+              Cho tôi thử lại
             </button>
           </div>
         ) : (

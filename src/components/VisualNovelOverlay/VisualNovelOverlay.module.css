@@ -221,3 +221,21 @@
     margin-top: 310px;
   }
 }
+.skipButton {
+  margin-top: 1rem;
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid var(--speaker-color);
+  color: var(--speaker-color);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  pointer-events: auto;
+}
+.skipButton:hover {
+  background: var(--speaker-color);
+  color: #000;
+}

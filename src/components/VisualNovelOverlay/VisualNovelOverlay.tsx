@@ -11,8 +11,10 @@ export type VisualNovelOverlayProps = {
   align?: "left" | "right" | "center";
   mood?: "neutral" | "soft" | "serious" | "funny" | "mysterious" | "intimate";
   dimBackground?: boolean;
+  skipLabel?: string;
   onClose: () => void;
   onComplete?: () => void;
+  onSkip?: () => void;
 };
 
 const enterFrom = (align: "left" | "right" | "center") => {
@@ -34,8 +36,10 @@ export const VisualNovelOverlay = ({
   align,
   mood = "neutral",
   dimBackground = true,
+  skipLabel,
   onClose,
   onComplete,
+  onSkip,
 }: VisualNovelOverlayProps) => {
   const resolvedAlign = align ?? speaker.align;
 
@@ -111,6 +115,18 @@ export const VisualNovelOverlay = ({
               align={resolvedAlign}
               onComplete={finish}
             />
+            {skipLabel && (
+              <button 
+                type="button" 
+                className={styles.skipButton} 
+                onClick={() => {
+                  if (onSkip) onSkip();
+                  finish();
+                }}
+              >
+                {skipLabel}
+              </button>
+            )}
           </motion.div>
         </motion.div>
       ) : null}

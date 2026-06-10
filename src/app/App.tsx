@@ -10,6 +10,9 @@ import { StarfieldCanvas } from "../components/Starfield/StarfieldCanvas";
 import { StarlogDrawer } from "../components/Starlog/StarlogDrawer";
 import { TarotJournal } from "../components/TarotJournal/TarotJournal";
 import { VisualNovelOverlay } from "../components/VisualNovelOverlay/VisualNovelOverlay";
+import { WhispersOverlay } from "../components/WhispersOverlay/WhispersOverlay";
+import { GuidedTour } from "../components/GuidedTour/GuidedTour";
+import { WarmupChallenge } from "../components/WarmupChallenge/WarmupChallenge";
 import { journeyParts } from "../data/journey";
 import { ambientDialogues } from "../data/ambientDialogues";
 import { guides } from "../data/guides";
@@ -76,6 +79,10 @@ export const App = () => {
     (value) => normalizeStoredState(value as Partial<AppState> | null),
   );
   const [showCometInterlude, setShowCometInterlude] = useState(false);
+  const [showWhispers, setShowWhispers] = useState(false);
+  const [showGuidedTour, setShowGuidedTour] = useState(false);
+  const [showWarmup, setShowWarmup] = useState(false);
+  const [guidedTourStep, setGuidedTourStep] = useState<"starlog" | "minigame" | "scroll" | null>(null);
   const [starlogOpen, setStarlogOpen] = useState(false);
   const [isTarotJournalOpen, setIsTarotJournalOpen] = useState(false);
   const [dialogueQueue, setDialogueQueue] = useState<DialogueOverlayRequest[]>([]);
@@ -221,7 +228,50 @@ export const App = () => {
       { speaker: guides.kagura, lines: ["Nhiệm vụ đầu tiên của các cậu, sẽ là tìm Tam Giác mùa hè trên bầu trời kia"], mood: "serious" },
       { speaker: guides.anChi, lines: ["Các cậu sẽ có được sự hướng dẫn của chúng tớ, nên đừng lo nhé!"], mood: "soft" },
       { speaker: guides.stone, lines: ["À, nó cũng là bầu trời sao vào đúng ngày này 4 năm trước đó!"], mood: "mysterious" },
-      { speaker: guides.kagura, lines: ["Chúc may mắn"], mood: "soft", onComplete: scrollToResumePart },
+      { speaker: guides.kagura, lines: ["Chúc may mắn"], mood: "soft", onComplete: () => {
+        if (!state.hasSeenGuidedTour) {
+          setShowGuidedTour(true);
+          setGuidedTourStep("starlog");
+          requestDialogue({
+            speaker: guides.kagura,
+            lines: ["Để tớ hướng dẫn cậu một chút nhé.", "Góc trái bên dưới là Starlog, nơi lưu trữ những ký ức mà cậu tìm thấy."],
+            mood: "soft",
+            onComplete: () => {
+              setGuidedTourStep("minigame");
+              requestDialogue({
+                speaker: guides.kagura,
+                lines: ["Còn bên phải là trạm Mini Games, nếu cậu muốn đổi gió hoặc kiếm thêm vé Gacha."],
+                mood: "soft",
+                onComplete: () => {
+                  setGuidedTourStep("scroll");
+                  requestDialogue({
+                    speaker: guides.kagura,
+                    lines: ["Cuối cùng, hãy cuộn xuống dưới màn hình để tiếp tục hành trình nhé."],
+                    mood: "soft",
+                    onComplete: () => {
+                      setShowGuidedTour(false);
+                      setGuidedTourStep(null);
+                      setState(prev => ({ ...prev, hasSeenGuidedTour: true }));
+                      
+                      if (!state.achievements.includes("warmup_complete")) {
+                        setShowWarmup(true);
+                      } else {
+                        scrollToResumePart();
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          });
+        } else {
+          if (!state.achievements.includes("warmup_complete")) {
+            setShowWarmup(true);
+          } else {
+            scrollToResumePart();
+          }
+        }
+      } },
     ];
 
     setState((previous) => ({
@@ -231,22 +281,7 @@ export const App = () => {
       currentSection: resumePartId,
     }));
     introDialogues.forEach(requestDialogue);
-    /*
-    requestDialogue({
-      speaker: guides.kagura,
-      lines: [
-        "Cuộn băng bắt đầu rồi.",
-        "Đi chậm thôi. Có những thứ chỉ hiện ra khi bạn chịu nhìn kỹ.",
-      ],
-      mood: "mysterious",
-      onComplete: () => {
-        window.setTimeout(() => {
-          document.getElementById(resumePartId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 120);
-      },
-    });
-    */
-  }, [requestDialogue, setState, state.completedParts]);
+  }, [requestDialogue, setState, state.completedParts, state.hasSeenGuidedTour]);
 
   const handlePlay = () => {
     unlock("journey_started");
@@ -257,6 +292,11 @@ export const App = () => {
   const handleInterludeComplete = useCallback(() => {
     audioManager.setMood("sky");
     setShowCometInterlude(false);
+    setShowWhispers(true);
+  }, []);
+
+  const handleWhispersComplete = useCallback(() => {
+    setShowWhispers(false);
     enterJourney();
   }, [enterJourney]);
 
@@ -271,7 +311,29 @@ export const App = () => {
         "Tín hiệu này rất hiếm gặp. Nó mang theo một nguyện ước may mắn đấy. Chúc mừng cậu nhé.",
       ],
     });
-  }, [unlock, requestDialogue]);
+  }, [unlock, requestDialogue, increaseAffinity]);
+
+  const handleSkipTour = useCallback(() => {
+    setDialogueQueue([]);
+    setShowGuidedTour(false);
+    setGuidedTourStep(null);
+    setState(prev => ({ ...prev, hasSeenGuidedTour: true }));
+    if (!state.achievements.includes("warmup_complete")) {
+      setShowWarmup(true);
+    } else {
+      window.setTimeout(() => {
+        document.getElementById(getResumePartId(state.completedParts))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 120);
+    }
+  }, [setState, state.completedParts, state.achievements]);
+
+  const handleWarmupComplete = useCallback(() => {
+    setShowWarmup(false);
+    unlock("warmup_complete");
+    window.setTimeout(() => {
+      document.getElementById(getResumePartId(state.completedParts))?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
+  }, [state.completedParts, unlock]);
 
   const sectionBaseProps = useMemo(
     () => ({
@@ -306,6 +368,8 @@ export const App = () => {
       {!state.hasStarted ? (
         showCometInterlude ? (
           <CometInterlude onComplete={handleInterludeComplete} />
+        ) : showWhispers ? (
+          <WhispersOverlay onComplete={handleWhispersComplete} />
         ) : (
           <TapeIntro onPlay={handlePlay} />
         )
@@ -379,6 +443,10 @@ export const App = () => {
       ) : null}
 
       <PinnedCharm state={state} />
+
+      {showGuidedTour && <GuidedTour step={guidedTourStep} onSkip={handleSkipTour} />}
+
+      {showWarmup && <WarmupChallenge requestDialogue={requestDialogue} onComplete={handleWarmupComplete} />}
 
       {isTarotJournalOpen && (
         <TarotJournal state={state} setState={setState} onClose={() => setIsTarotJournalOpen(false)} />

@@ -228,7 +228,44 @@ export const Gacha = ({
 
         {!isCompleted && state.gashaponPulls > 0 ? (
           <div style={{ marginTop: '3rem', textAlign: 'center', position: 'relative', zIndex: 20 }}>
-            <button className="primaryAction" type="button" onClick={() => completePart("gacha")}>
+            <button 
+              className="primaryAction" 
+              type="button" 
+              onClick={() => {
+                const arcadeFrame = document.querySelector(`.${styles.arcadeFrame}`) as HTMLElement;
+                if (arcadeFrame) {
+                  // add a class or inline style to simulate dots
+                  for (let i = 0; i < 30; i++) {
+                    const dot = document.createElement("div");
+                    dot.style.position = "absolute";
+                    dot.style.width = "4px";
+                    dot.style.height = "4px";
+                    dot.style.background = "#fff";
+                    dot.style.borderRadius = "50%";
+                    dot.style.boxShadow = "0 0 8px 2px rgba(255, 255, 255, 0.8)";
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.top = `${Math.random() * 100}%`;
+                    dot.style.opacity = "0";
+                    dot.style.transition = "opacity 2s ease";
+                    dot.style.zIndex = "50";
+                    arcadeFrame.appendChild(dot);
+                    setTimeout(() => dot.style.opacity = "0.6", 100);
+                  }
+                }
+
+                requestDialogue({
+                  speaker: guides.kuro,
+                  lines: ["Nhiều người đã đến đây trước bạn... và để lại điều gì đó."],
+                  mood: "mysterious",
+                  onComplete: () => {
+                    completePart("gacha");
+                    window.setTimeout(() => {
+                      document.getElementById("wishes")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 100);
+                  }
+                });
+              }}
+            >
               Tiếp tục hành trình
             </button>
           </div>

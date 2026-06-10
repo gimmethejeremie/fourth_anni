@@ -90,12 +90,20 @@ export const Wishes = ({
       const newRead = [...readWishes, wish.id];
       setReadWishes(newRead);
       if (newRead.length >= 10 && !isCompleted) {
-        completePart("wishes");
-        requestDialogue({
-          speaker: guides.nova,
-          lines: ["Đủ lượng nguyện cầu cần thiết. Mảnh ký ức này đã được phục hồi."],
-          mood: "soft",
-        });
+        // Trigger micro celebration: animate read wishes
+        setTimeout(() => {
+          const cards = document.querySelectorAll(`.${styles.read}`);
+          cards.forEach(card => card.classList.add(styles.floatUpLight));
+          
+          requestDialogue({
+            speaker: guides.anChi,
+            lines: ["Mỗi lời ở đây đều thật."],
+            mood: "soft",
+            onComplete: () => {
+              completePart("wishes");
+            }
+          });
+        }, 500);
       }
     }
   };

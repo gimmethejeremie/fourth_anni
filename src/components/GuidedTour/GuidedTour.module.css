@@ -1,0 +1,83 @@
+.guidedTourOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50; /* Above normal UI but below VN overlay which is 45? wait VN overlay is z-index: 45. So we need z-index: 40 */
+  pointer-events: none;
+}
+
+.skipBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 60;
+  pointer-events: auto;
+  padding: 0.6rem 1.2rem;
+  background: rgba(8, 10, 18, 0.8);
+  border: 1px solid rgba(216, 180, 92, 0.4);
+  border-radius: 99px;
+  color: var(--cream);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+
+.skipBtn:hover {
+  background: rgba(216, 180, 92, 0.2);
+  border-color: rgba(216, 180, 92, 0.8);
+}
+
+.highlightSpot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.highlightSpot::before {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  animation: pulseHighlight 1.5s infinite;
+}
+
+.tooltip {
+  position: absolute;
+  width: max-content;
+  max-width: 200px;
+  padding: 0.8rem 1rem;
+  background: rgba(13, 17, 32, 0.9);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--cream);
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s forwards;
+}
+
+.tooltip.starlog {
+  bottom: calc(100% + 20px);
+  left: 0;
+}
+
+.tooltip.minigame {
+  bottom: calc(100% + 20px);
+  right: 0;
+}
+
+.tooltip.scroll {
+  bottom: calc(100% + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes pulseHighlight {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

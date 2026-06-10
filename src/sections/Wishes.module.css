@@ -314,3 +314,14 @@
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
+
+.floatUpLight {
+  animation: floatUpAndFade 2s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUpAndFade {
+  0% { transform: translateY(0); opacity: 1; filter: brightness(1); }
+  50% { transform: translateY(-30px); opacity: 0.8; filter: brightness(1.5); }
+  100% { transform: translateY(-80px) scale(0.8); opacity: 0; filter: brightness(2); }
+}

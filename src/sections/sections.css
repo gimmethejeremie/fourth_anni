@@ -2341,3 +2341,10 @@
     width: min(100%, 190px);
   }
 }
+
+.zoomingOut {
+  transform: scale(0.8) translateZ(-100px);
+  opacity: 0;
+  transition: transform 4s cubic-bezier(0.25, 1, 0.5, 1), opacity 4s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
