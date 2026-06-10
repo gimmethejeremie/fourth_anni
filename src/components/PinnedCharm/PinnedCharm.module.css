@@ -1,0 +1,83 @@
+.container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 45; /* above journey but below overlays */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.charm {
+  width: 60px;
+  height: 90px;
+  background: linear-gradient(135deg, #2a2a40, #1e1e2e);
+  border: 2px solid #D8B45C;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(216, 180, 92, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: float 4s ease-in-out infinite;
+}
+
+.charm:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(216, 180, 92, 0.6);
+}
+
+.charmIcon {
+  font-size: 24px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 110px;
+  left: 0;
+  width: 250px;
+  background: rgba(30, 30, 46, 0.95);
+  border: 1px solid rgba(216, 180, 92, 0.5);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  transform-origin: bottom left;
+  animation: fadeIn 0.2s ease-out;
+  color: #e2e8f0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.tooltip h4 {
+  margin: 0 0 0.5rem 0;
+  color: #D8B45C;
+  font-family: serif;
+}
+
+.tooltip p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.closeTooltip {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+}

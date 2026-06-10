@@ -28,13 +28,15 @@ export const tarotTopicLabels: Record<TarotTopic, string> = {
   self: "Bản thân",
 };
 
-export const tarotDeck: TarotCard[] = [
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
+const featuredTarotCards: TarotCard[] = [
   {
     id: "the-fool",
     name: "The Fool",
     viName: "Kẻ Khởi Hành",
     arcana: "major",
-    image: "/cards/the-fool.jpg",
+    image: publicAsset("cards/the-fool.jpg"),
     upright: {
       keywords: ["khởi đầu", "tự do", "niềm tin"],
       general: [
@@ -97,7 +99,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The Magician",
     viName: "Nhà Giả Kim",
     arcana: "major",
-    image: "/cards/the-magician.jpg",
+    image: publicAsset("cards/the-magician.jpg"),
     upright: {
       keywords: ["ý chí", "kỹ năng", "biến hóa"],
       general: [
@@ -160,7 +162,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The High Priestess",
     viName: "Nữ Tư Tế",
     arcana: "major",
-    image: "/cards/the-high-priestess.jpg",
+    image: publicAsset("cards/the-high-priestess.jpg"),
     upright: {
       keywords: ["trực giác", "bí mật", "lắng nghe"],
       general: [
@@ -223,7 +225,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The Lovers",
     viName: "Những Người Yêu Nhau",
     arcana: "major",
-    image: "/cards/the-lovers.jpg",
+    image: publicAsset("cards/the-lovers.jpg"),
     upright: {
       keywords: ["kết nối", "lựa chọn", "hòa hợp"],
       general: [
@@ -286,7 +288,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The Chariot",
     viName: "Cỗ Xe Chiến",
     arcana: "major",
-    image: "/cards/the-chariot.jpg",
+    image: publicAsset("cards/the-chariot.jpg"),
     upright: {
       keywords: ["tiến lên", "kỷ luật", "định hướng"],
       general: [
@@ -349,7 +351,7 @@ export const tarotDeck: TarotCard[] = [
     name: "Strength",
     viName: "Sức Mạnh Dịu Dàng",
     arcana: "major",
-    image: "/cards/strength.jpg",
+    image: publicAsset("cards/strength.jpg"),
     upright: {
       keywords: ["can đảm", "dịu dàng", "kiên nhẫn"],
       general: [
@@ -412,7 +414,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The Hermit",
     viName: "Ẩn Sĩ",
     arcana: "major",
-    image: "/cards/the-hermit.jpg",
+    image: publicAsset("cards/the-hermit.jpg"),
     upright: {
       keywords: ["soi đường", "một mình", "chiêm nghiệm"],
       general: [
@@ -475,7 +477,7 @@ export const tarotDeck: TarotCard[] = [
     name: "Wheel of Fortune",
     viName: "Bánh Xe Vận Hội",
     arcana: "major",
-    image: "/cards/wheel-of-fortune.jpg",
+    image: publicAsset("cards/wheel-of-fortune.jpg"),
     upright: {
       keywords: ["chu kỳ", "chuyển động", "cơ hội"],
       general: [
@@ -538,7 +540,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The Moon",
     viName: "Mặt Trăng",
     arcana: "major",
-    image: "/cards/the-moon.jpg",
+    image: publicAsset("cards/the-moon.jpg"),
     upright: {
       keywords: ["mơ hồ", "tiềm thức", "ảo ảnh"],
       general: [
@@ -601,7 +603,7 @@ export const tarotDeck: TarotCard[] = [
     name: "The World",
     viName: "Thế Giới",
     arcana: "major",
-    image: "/cards/the-world.jpg",
+    image: publicAsset("cards/the-world.jpg"),
     upright: {
       keywords: ["hoàn tất", "trọn vẹn", "mở rộng"],
       general: [
@@ -660,3 +662,390 @@ export const tarotDeck: TarotCard[] = [
     },
   },
 ];
+
+type GeneratedMajorCard = {
+  id: string;
+  name: string;
+  viName: string;
+  uprightKeywords: string[];
+  reversedKeywords: string[];
+  uprightEssence: string;
+  reversedEssence: string;
+};
+
+type GeneratedMinorSuit = {
+  id: NonNullable<TarotCard["suit"]>;
+  viName: string;
+  uprightKeywords: string[];
+  reversedKeywords: string[];
+  uprightEssence: string;
+  reversedEssence: string;
+};
+
+type GeneratedMinorRank = {
+  id: string;
+  name: string;
+  viName: string;
+  uprightKeywords: string[];
+  reversedKeywords: string[];
+  uprightEssence: string;
+  reversedEssence: string;
+};
+
+const makeMeaningGroup = (
+  keywords: string[],
+  viName: string,
+  essence: string,
+  orientation: "upright" | "reversed",
+): TarotMeaningGroup => {
+  const isReversed = orientation === "reversed";
+  const pacing = isReversed ? "chậm lại" : "đi tiếp";
+  const soften = isReversed ? "nhìn thẳng vào phần đang lệch nhịp" : "tin vào phần đang sáng lên";
+
+  return {
+    keywords,
+    general: [
+      `${viName} mang tín hiệu về ${essence}; hãy ${pacing} và để lá bài chỉ ra điều cần được chú ý nhất lúc này.`,
+      `Ở tầng tổng quan, lá này nhắc bạn ${soften} trước khi quyết định bước kế tiếp.`,
+      `Nếu mọi thứ đang nhiều lớp, ${viName} khuyên bạn chọn một dấu hiệu nhỏ nhưng thật để bắt đầu đọc lại tình hình.`,
+    ],
+    love: [
+      `Trong tình cảm, ${viName} nói về ${essence} giữa hai trái tim, nhất là những điều chưa kịp gọi tên.`,
+      `Lá này mời một cuộc trò chuyện dịu hơn, rõ hơn, để cảm xúc không phải tự đoán đường đi.`,
+      `Nếu đang nghĩ về một mối liên kết, hãy xem điều gì cần được giữ, điều gì cần được thả lỏng.`,
+    ],
+    study: [
+      `Trong học tập, ${viName} gợi ý biến ${essence} thành một bước thực hành cụ thể và vừa sức.`,
+      `Một ghi chú nhỏ, một lịch học gọn hoặc một lần hỏi lại đúng chỗ có thể giúp tín hiệu sáng hơn.`,
+      `Lá này nhắc bạn học bằng nhịp bền, không ép bản thân phải hiểu hết trong một lần.`,
+    ],
+    future: [
+      `Với tương lai gần, ${viName} cho thấy ${essence} có thể là chiếc la bàn mềm cho bước kế tiếp.`,
+      `Chưa cần biết toàn bộ con đường; hãy nhìn dấu hiệu gần nhất và chọn cách đi tử tế với mình.`,
+      `Lá này không đóng khung kết quả, chỉ mở một hướng để bạn bước vào ngày mai tỉnh táo hơn.`,
+    ],
+    self: [
+      `Với bản thân, ${viName} chạm vào ${essence} và nhắc bạn lắng nghe nhu cầu thật phía dưới phản ứng đầu tiên.`,
+      `Có một phần trong bạn đang muốn được nhìn nhận nhẹ tay hơn, không phải sửa ngay lập tức.`,
+      `Hãy để lá bài này trở thành một câu hỏi nhỏ: mình cần chăm phần nào của mình hôm nay?`,
+    ],
+  };
+};
+
+const missingMajorArcana: GeneratedMajorCard[] = [
+  {
+    id: "the-empress",
+    name: "The Empress",
+    viName: "Nữ Hoàng",
+    uprightKeywords: ["nuôi dưỡng", "sáng tạo", "trù phú"],
+    reversedKeywords: ["cạn kiệt", "quên chăm mình", "bí dòng"],
+    uprightEssence: "sự nuôi dưỡng và khả năng làm điều đẹp đẽ lớn lên",
+    reversedEssence: "sự cạn năng lượng khi cho đi quá nhiều mà chưa được bồi lại",
+  },
+  {
+    id: "the-emperor",
+    name: "The Emperor",
+    viName: "Hoàng Đế",
+    uprightKeywords: ["trật tự", "ranh giới", "nền tảng"],
+    reversedKeywords: ["cứng nhắc", "kiểm soát", "áp lực"],
+    uprightEssence: "cấu trúc vững và quyền được đặt ranh giới rõ ràng",
+    reversedEssence: "sự kiểm soát quá tay khiến điều cần bảo vệ trở nên nặng nề",
+  },
+  {
+    id: "the-hierophant",
+    name: "The Hierophant",
+    viName: "Giáo Hoàng",
+    uprightKeywords: ["truyền thống", "học hỏi", "niềm tin"],
+    reversedKeywords: ["khuôn cũ", "nghi vấn", "tự chọn đường"],
+    uprightEssence: "bài học từ cộng đồng, thầy cô và những nghi thức giúp mình đứng vững",
+    reversedEssence: "nhu cầu xem lại một khuôn mẫu trước khi tiếp tục tin theo",
+  },
+  {
+    id: "justice",
+    name: "Justice",
+    viName: "Công Lý",
+    uprightKeywords: ["cân bằng", "sự thật", "trách nhiệm"],
+    reversedKeywords: ["thiên lệch", "né tránh", "chưa công bằng"],
+    uprightEssence: "sự thật rõ ràng và lựa chọn có trách nhiệm",
+    reversedEssence: "một cán cân đang lệch và cần được nhìn lại trung thực",
+  },
+  {
+    id: "the-hanged-man",
+    name: "The Hanged Man",
+    viName: "Người Treo Ngược",
+    uprightKeywords: ["tạm dừng", "đổi góc nhìn", "buông"],
+    reversedKeywords: ["kẹt lâu", "kháng cự", "hy sinh vô ích"],
+    uprightEssence: "khoảng dừng cần thiết để nhìn đời từ một góc khác",
+    reversedEssence: "sự mắc kẹt vì chưa chịu buông cách nhìn đã cũ",
+  },
+  {
+    id: "death",
+    name: "Death",
+    viName: "Cái Chết",
+    uprightKeywords: ["kết thúc", "chuyển hóa", "tái sinh"],
+    reversedKeywords: ["bám giữ", "sợ đổi thay", "trì hoãn"],
+    uprightEssence: "một kết thúc cần thiết để điều mới có chỗ thở",
+    reversedEssence: "sự bám víu vào điều đã hết vai trò vì sợ khoảng trống sau đó",
+  },
+  {
+    id: "temperance",
+    name: "Temperance",
+    viName: "Tiết Chế",
+    uprightKeywords: ["hòa hợp", "điều độ", "chữa lành"],
+    reversedKeywords: ["quá đà", "lệch nhịp", "mất cân bằng"],
+    uprightEssence: "sự pha trộn vừa đủ để những phần khác nhau tìm lại nhịp chung",
+    reversedEssence: "một nhịp sống đang lệch và cần được điều chỉnh nhẹ nhưng thật",
+  },
+  {
+    id: "the-devil",
+    name: "The Devil",
+    viName: "Ác Quỷ",
+    uprightKeywords: ["ràng buộc", "ham muốn", "bóng tối"],
+    reversedKeywords: ["giải phóng", "nhận diện", "cắt dây"],
+    uprightEssence: "những ràng buộc, cám dỗ hoặc thói quen khiến mình tưởng là không thể rời",
+    reversedEssence: "khoảnh khắc nhận ra sợi dây nào có thể được nới lỏng",
+  },
+  {
+    id: "the-tower",
+    name: "The Tower",
+    viName: "Tòa Tháp",
+    uprightKeywords: ["đột biến", "sụp đổ", "thức tỉnh"],
+    reversedKeywords: ["né chấn động", "rụng chậm", "xây lại"],
+    uprightEssence: "sự thật bất ngờ làm rơi một cấu trúc không còn chịu lực",
+    reversedEssence: "một thay đổi đã âm ỉ lâu và đang xin được xử lý trước khi quá mạnh",
+  },
+  {
+    id: "the-star",
+    name: "The Star",
+    viName: "Ngôi Sao",
+    uprightKeywords: ["hy vọng", "chữa lành", "dẫn đường"],
+    reversedKeywords: ["mất tin", "khô cạn", "xa ánh sáng"],
+    uprightEssence: "hy vọng dịu và khả năng hồi phục sau một đoạn đường dài",
+    reversedEssence: "cảm giác xa khỏi nguồn sáng của mình nhưng chưa thật sự mất nó",
+  },
+  {
+    id: "the-sun",
+    name: "The Sun",
+    viName: "Mặt Trời",
+    uprightKeywords: ["rạng rỡ", "thành công", "rõ ràng"],
+    reversedKeywords: ["mây che", "vui gượng", "chậm sáng"],
+    uprightEssence: "sự rõ ràng, niềm vui và cảm giác được sống dưới ánh sáng thật",
+    reversedEssence: "niềm vui bị che bớt bởi mệt mỏi hoặc kỳ vọng quá lớn",
+  },
+  {
+    id: "judgement",
+    name: "Judgement",
+    viName: "Phán Xét",
+    uprightKeywords: ["thức gọi", "tái sinh", "nhìn lại"],
+    reversedKeywords: ["tự trách", "trì hoãn", "sợ tiếng gọi"],
+    uprightEssence: "tiếng gọi thức tỉnh để nhìn lại mình bằng lòng can đảm mới",
+    reversedEssence: "sự tự phán xét quá nặng khiến lời gọi bên trong bị nhỏ đi",
+  },
+];
+
+const minorSuits: GeneratedMinorSuit[] = [
+  {
+    id: "cups",
+    viName: "Cốc",
+    uprightKeywords: ["cảm xúc", "kết nối", "dịu dàng"],
+    reversedKeywords: ["tràn cảm xúc", "khép lòng", "mơ hồ"],
+    uprightEssence: "dòng cảm xúc và khả năng kết nối bằng sự chân thành",
+    reversedEssence: "cảm xúc bị nghẽn, tràn hoặc chưa tìm được nơi an toàn để chảy",
+  },
+  {
+    id: "wands",
+    viName: "Gậy",
+    uprightKeywords: ["hành động", "đam mê", "khởi phát"],
+    reversedKeywords: ["tản lửa", "nóng vội", "mất đà"],
+    uprightEssence: "ngọn lửa hành động, cảm hứng và ý chí muốn tạo ra điều mới",
+    reversedEssence: "năng lượng bị tản, cháy quá nhanh hoặc chưa có hướng rõ",
+  },
+  {
+    id: "swords",
+    viName: "Kiếm",
+    uprightKeywords: ["suy nghĩ", "sự thật", "quyết định"],
+    reversedKeywords: ["nhiễu trí", "lời sắc", "kẹt nghĩ"],
+    uprightEssence: "sự rõ ràng của suy nghĩ, lời nói và quyết định cần thiết",
+    reversedEssence: "tâm trí nhiều nhiễu khiến sự thật bị sắc cạnh hoặc khó nghe",
+  },
+  {
+    id: "pentacles",
+    viName: "Tiền Xu",
+    uprightKeywords: ["thực tế", "công sức", "nền tảng"],
+    reversedKeywords: ["chậm trễ", "thiếu chăm", "bất ổn"],
+    uprightEssence: "đời sống thực tế, công sức tích lũy và những nền tảng có thể chạm vào",
+    reversedEssence: "một nền tảng cần được chăm lại vì đang thiếu nhịp bền",
+  },
+];
+
+const minorRanks: GeneratedMinorRank[] = [
+  {
+    id: "ace",
+    name: "Ace",
+    viName: "Át",
+    uprightKeywords: ["hạt mầm", "khởi đầu", "cơ hội"],
+    reversedKeywords: ["chưa nảy", "lỡ nhịp", "khó mở"],
+    uprightEssence: "một hạt mầm mới vừa xuất hiện",
+    reversedEssence: "một hạt mầm còn chờ đủ điều kiện để nảy lên",
+  },
+  {
+    id: "two",
+    name: "Two",
+    viName: "Hai",
+    uprightKeywords: ["song hành", "lựa chọn", "cân nhịp"],
+    reversedKeywords: ["lệch đôi", "do dự", "khó chọn"],
+    uprightEssence: "hai lực đang học cách đi cạnh nhau",
+    reversedEssence: "hai hướng chưa tìm được nhịp chung",
+  },
+  {
+    id: "three",
+    name: "Three",
+    viName: "Ba",
+    uprightKeywords: ["phát triển", "hợp tác", "mở rộng"],
+    reversedKeywords: ["lệch nhóm", "chậm lớn", "thiếu nối"],
+    uprightEssence: "sự lớn lên qua kết nối và cộng hưởng",
+    reversedEssence: "một sự hợp tác hoặc tiến triển đang thiếu điểm nối",
+  },
+  {
+    id: "four",
+    name: "Four",
+    viName: "Bốn",
+    uprightKeywords: ["ổn định", "nghỉ", "khung giữ"],
+    reversedKeywords: ["kẹt khung", "bất an", "khó nghỉ"],
+    uprightEssence: "một khung ổn định để nghỉ và gom sức",
+    reversedEssence: "sự ổn định biến thành chật chội hoặc khó thở",
+  },
+  {
+    id: "five",
+    name: "Five",
+    viName: "Năm",
+    uprightKeywords: ["va chạm", "thử thách", "thiếu hụt"],
+    reversedKeywords: ["hồi phục", "bớt căng", "rút bài học"],
+    uprightEssence: "một va chạm khiến điều yếu cần được nhìn rõ",
+    reversedEssence: "đoạn sau thử thách, khi bài học bắt đầu dịu lại",
+  },
+  {
+    id: "six",
+    name: "Six",
+    viName: "Sáu",
+    uprightKeywords: ["hồi âm", "hỗ trợ", "cân bằng"],
+    reversedKeywords: ["lệch cho-nhận", "kẹt cũ", "khó nhận"],
+    uprightEssence: "sự nâng đỡ và cân bằng trở lại sau một đoạn chao",
+    reversedEssence: "một nhịp cho-nhận cần được cân lại tử tế",
+  },
+  {
+    id: "seven",
+    name: "Seven",
+    viName: "Bảy",
+    uprightKeywords: ["đánh giá", "chọn lọc", "kiên trì"],
+    reversedKeywords: ["mơ hồ", "nghi ngờ", "quá thủ"],
+    uprightEssence: "thời điểm đánh giá kỹ trước khi đi tiếp",
+    reversedEssence: "sự nghi ngờ hoặc phòng thủ làm lựa chọn bị mờ",
+  },
+  {
+    id: "eight",
+    name: "Eight",
+    viName: "Tám",
+    uprightKeywords: ["chuyển động", "luyện tập", "tập trung"],
+    reversedKeywords: ["kẹt nhịp", "vội sai", "lặp mệt"],
+    uprightEssence: "nhịp chuyển động đều và sự rèn luyện có hướng",
+    reversedEssence: "một vòng lặp mệt vì đi nhanh nhưng chưa đúng hướng",
+  },
+  {
+    id: "nine",
+    name: "Nine",
+    viName: "Chín",
+    uprightKeywords: ["gần trọn", "bền bỉ", "tự lập"],
+    reversedKeywords: ["kiệt sức", "cô độc", "thiếu nghỉ"],
+    uprightEssence: "độ chín của nỗ lực và sức bền đã tích lại",
+    reversedEssence: "sự kiệt sức khi cố đi một mình quá lâu",
+  },
+  {
+    id: "ten",
+    name: "Ten",
+    viName: "Mười",
+    uprightKeywords: ["hoàn tất", "gánh vác", "chu kỳ"],
+    reversedKeywords: ["quá tải", "chưa khép", "thả bớt"],
+    uprightEssence: "một chu kỳ đang đi đến điểm kết hoặc điểm thu hoạch",
+    reversedEssence: "gánh nặng cuối chặng cần được thả bớt để thật sự khép lại",
+  },
+  {
+    id: "page",
+    name: "Page",
+    viName: "Tiểu Đồng",
+    uprightKeywords: ["tin nhắn", "học việc", "tò mò"],
+    reversedKeywords: ["non vội", "ngại hỏi", "tin nhiễu"],
+    uprightEssence: "một tín hiệu trẻ, tò mò và đang học cách lên tiếng",
+    reversedEssence: "sự non vội hoặc ngại hỏi khiến thông điệp dễ bị méo",
+  },
+  {
+    id: "knight",
+    name: "Knight",
+    viName: "Kỵ Sĩ",
+    uprightKeywords: ["truy đuổi", "chuyển động", "can đảm"],
+    reversedKeywords: ["hấp tấp", "lệch hướng", "căng lực"],
+    uprightEssence: "động lực tiến lên và can đảm đi theo điều mình chọn",
+    reversedEssence: "sự hấp tấp hoặc căng lực khiến hướng đi bị lệch",
+  },
+  {
+    id: "queen",
+    name: "Queen",
+    viName: "Nữ Hoàng",
+    uprightKeywords: ["làm chủ", "nuôi dưỡng", "trực giác"],
+    reversedKeywords: ["quên mình", "quá ôm", "khép quyền"],
+    uprightEssence: "năng lực làm chủ mềm mại và biết nuôi dưỡng điều quan trọng",
+    reversedEssence: "sự ôm đồm hoặc quên chăm mình trong lúc chăm điều khác",
+  },
+  {
+    id: "king",
+    name: "King",
+    viName: "Nhà Vua",
+    uprightKeywords: ["lãnh đạo", "ổn định", "trách nhiệm"],
+    reversedKeywords: ["áp đặt", "cứng quyền", "thiếu linh hoạt"],
+    uprightEssence: "quyền làm chủ chín chắn và trách nhiệm với điều mình xây",
+    reversedEssence: "quyền kiểm soát trở nên cứng hoặc thiếu khả năng lắng nghe",
+  },
+];
+
+const makeGeneratedMajorCard = (card: GeneratedMajorCard): TarotCard => ({
+  id: card.id,
+  name: card.name,
+  viName: card.viName,
+  arcana: "major",
+  image: publicAsset(`cards/${card.id}.jpg`),
+  upright: makeMeaningGroup(card.uprightKeywords, card.viName, card.uprightEssence, "upright"),
+  reversed: makeMeaningGroup(card.reversedKeywords, card.viName, card.reversedEssence, "reversed"),
+});
+
+const makeGeneratedMinorCard = (suit: GeneratedMinorSuit, rank: GeneratedMinorRank): TarotCard => {
+  const viName = `${rank.viName} ${suit.viName}`;
+  const name = `${rank.name} of ${suit.viName === "Tiền Xu" ? "Pentacles" : suit.viName === "Cốc" ? "Cups" : suit.viName === "Gậy" ? "Wands" : "Swords"}`;
+
+  return {
+    id: `${rank.id}-of-${suit.id}`,
+    name,
+    viName,
+    arcana: "minor",
+    suit: suit.id,
+    image: publicAsset(`cards/${rank.id}-of-${suit.id}.jpg`),
+    upright: makeMeaningGroup(
+      [...rank.uprightKeywords, ...suit.uprightKeywords],
+      viName,
+      `${rank.uprightEssence} trong vùng ${suit.uprightEssence}`,
+      "upright",
+    ),
+    reversed: makeMeaningGroup(
+      [...rank.reversedKeywords, ...suit.reversedKeywords],
+      viName,
+      `${rank.reversedEssence} trong vùng ${suit.reversedEssence}`,
+      "reversed",
+    ),
+  };
+};
+
+const generatedTarotCards: TarotCard[] = [
+  ...missingMajorArcana.map(makeGeneratedMajorCard),
+  ...minorSuits.flatMap((suit) => minorRanks.map((rank) => makeGeneratedMinorCard(suit, rank))),
+];
+
+export const tarotDeck: TarotCard[] = [...featuredTarotCards, ...generatedTarotCards];

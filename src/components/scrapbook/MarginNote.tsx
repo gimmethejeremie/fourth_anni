@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DialogueOverlayRequest } from "../../sections/sectionTypes";
-import { GuideCharacter, guides } from "../../data/guides";
+import { GuideCharacter, guideList, guides } from "../../data/guides";
 
 type MarginNoteProps = {
   id: string;
@@ -19,8 +19,7 @@ export const MarginNote = ({ id, author, text, requestDialogue, onTrigger }: Mar
       onTrigger();
     }
     
-    // Find speaker from guides or fallback to lilWayne
-    const speaker: GuideCharacter = (guides as any)[author.replace("-", "")] || guides.lilWayne;
+    const speaker: GuideCharacter = guideList.find((guide) => guide.id === author) || guides.lilWayne;
 
     requestDialogue({
       speaker,

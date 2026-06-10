@@ -71,6 +71,9 @@ export type AppState = {
   constellationSpecialStars: string[];
   scrapbookChapterIndex: number;
   tarotReading: TarotReading;
+  tarotHistory: NonNullable<TarotReading>[];
+  pinnedCharm: SavedTarotCard | null;
+  characterAffinity: Record<string, number>;
   gashaponInventory: string[];
   gashaponPulls: number;
   gashaponPity: number;
@@ -96,6 +99,9 @@ export const createInitialState = (): AppState => ({
   constellationSpecialStars: [],
   scrapbookChapterIndex: 0,
   tarotReading: null,
+  tarotHistory: [],
+  pinnedCharm: null,
+  characterAffinity: {},
   gashaponInventory: [],
   gashaponPulls: 0,
   gashaponPity: 0,
@@ -192,6 +198,11 @@ export const normalizeStoredState = (value: Partial<AppState> | null): AppState 
       : [],
     scrapbookChapterIndex:
       typeof value.scrapbookChapterIndex === "number" ? value.scrapbookChapterIndex : 0,
+    tarotHistory: Array.isArray(value.tarotHistory) ? value.tarotHistory : [],
+    pinnedCharm: typeof value.pinnedCharm === "object" ? value.pinnedCharm : null,
+    characterAffinity: typeof value.characterAffinity === "object" && value.characterAffinity !== null 
+      ? (value.characterAffinity as Record<string, number>) 
+      : {},
     gashaponInventory: Array.isArray(value.gashaponInventory) ? value.gashaponInventory : [],
     gashaponPulls: typeof value.gashaponPulls === "number" ? value.gashaponPulls : 0,
     gashaponPity: typeof value.gashaponPity === "number" ? value.gashaponPity : 0,

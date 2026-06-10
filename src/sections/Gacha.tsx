@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { gifts, Gift } from "../data/gacha";
 import { guides } from "../data/guides";
-import { hasAchievement } from "../lib/achievements";
 import { audioManager } from "../lib/audioManager";
 import { weightedPick } from "../lib/random";
 import { constellationStars } from "../data/constellation";
 import { DialogueOverlayRequest, SectionProps } from "./sectionTypes";
 import styles from "./Gacha.module.css";
-
-const SECRET_GIFT_TITLE = "Hộp quà mở bằng ngôi sao ẩn";
-const SECRET_GIFT_DESCRIPTION =
-  "Bên trong là một mảnh băng rất nhỏ: lời nhắc rằng tò mò cũng là một kiểu yêu thương.";
 
 type DrawingPhase = "idle" | "turning" | "dropping" | "opening" | "revealed";
 

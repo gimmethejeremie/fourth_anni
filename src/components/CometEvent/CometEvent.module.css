@@ -1,0 +1,64 @@
+.cometContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50; /* below visual novel overlay but above journey parts */
+  overflow: hidden;
+}
+
+.comet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  cursor: crosshair;
+  width: 300px;
+  height: 40px; /* Larger clickable area */
+  margin-top: -20px;
+  animation: flyComet var(--duration) linear forwards;
+  transform-origin: center right; 
+}
+
+.cometVisual {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(200, 230, 255, 0.8) 80%, rgba(255, 255, 255, 1));
+  border-radius: 50%;
+  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4), 0 0 30px 5px rgba(150, 200, 255, 0.3);
+}
+
+.cometHead {
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.9), 0 0 40px 15px rgba(180, 220, 255, 0.6);
+}
+
+@keyframes flyComet {
+  0% {
+    transform: translate3d(var(--startX), var(--startY), 0) rotate(var(--angle));
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--endX), var(--endY), 0) rotate(var(--angle));
+    opacity: 0;
+  }
+}

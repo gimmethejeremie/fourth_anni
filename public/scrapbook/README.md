@@ -1,10 +1,12 @@
 # Scrapbook Media
 
-Place final scrapbook images and videos here and reference them from `src/data/scrapbook.ts` with public paths such as:
+Place final scrapbook images and videos here and reference them from `src/data/scrapbook.ts` through the app base path helper if real media is added:
 
 ```ts
-image: "/scrapbook/linh-lan-year-01.jpg",
-video: "/scrapbook/linh-lan-year-01.mp4",
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
+image: publicAsset("scrapbook/linh-lan-year-01.jpg"),
+video: publicAsset("scrapbook/linh-lan-year-01.mp4"),
 ```
 
 Recommended filename pattern:
@@ -14,4 +16,4 @@ Recommended filename pattern:
 - `lan-linh-year-01.jpg`
 - `lan-linh-year-01.mp4`
 
-Images render in the Polaroid frame, videos render with controls in the expanded lightbox. Placeholder strings still render as text until these paths are added.
+Images render in the Polaroid frame, videos render with controls in the expanded lightbox. The current scrapbook data uses final anniversary copy as text beats until real media paths are added.

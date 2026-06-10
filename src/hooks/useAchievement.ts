@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { getAchievement } from "../lib/achievements";
+import { audioManager } from "../lib/audioManager";
 import { AppState } from "../lib/storage";
 
 type ToastState = {
@@ -33,6 +34,7 @@ export const useAchievement = (
       const achievement = getAchievement(id);
       if (achievement) {
         setToast({ id, title: achievement.title });
+        void audioManager.start().then(() => audioManager.playAchievementCue(achievement.tier));
       }
     },
     [setState, state.achievements],

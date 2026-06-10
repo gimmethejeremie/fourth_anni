@@ -115,4 +115,10 @@ export const achievements: Achievement[] = [
     description: "Mỗi vì sao trên bầu trời 20.08 đều mang một ý nghĩa riêng biệt. Dù là điểm sáng mờ ảo ở rìa trời hay rực rỡ tại trung tâm, tất cả đều góp phần tạo nên bức tranh thiên văn trọn vẹn.",
     tier: "hidden",
   },
+  {
+    id: "comet_caught",
+    title: "Sao Chổi May Mắn",
+    description: "Bạn đã bắt được một ngôi sao chổi băng qua hành trình. Nguyện ước sẽ thành hiện thực.",
+    tier: "hidden",
+  },
 ];

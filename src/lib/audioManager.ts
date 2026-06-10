@@ -90,6 +90,46 @@ export const audioManager = {
     }
   },
 
+  playAchievementCue(tier: "main" | "puzzle" | "hidden" = "main") {
+    if (!started || muted || !toneModule || !synth || !pianoSynth || !clackNoise) {
+      return;
+    }
+
+    try {
+      const now = toneModule.now();
+      const sparkleNotes =
+        tier === "hidden"
+          ? ["G5", "B5", "D6", "G6"]
+          : tier === "puzzle"
+            ? ["E5", "G5", "B5", "E6"]
+            : ["C5", "E5", "G5", "C6"];
+
+      clackNoise.triggerAttackRelease("64n", now, 0.16);
+      synth.triggerAttackRelease(sparkleNotes.slice(0, 3), "16n", now + 0.02, 0.5);
+      pianoSynth.triggerAttackRelease(sparkleNotes[0], "32n", now + 0.02, 0.24);
+      pianoSynth.triggerAttackRelease(sparkleNotes[1], "32n", now + 0.16, 0.28);
+      pianoSynth.triggerAttackRelease(sparkleNotes[2], "32n", now + 0.3, 0.3);
+      pianoSynth.triggerAttackRelease(sparkleNotes[3], "8n", now + 0.48, 0.38);
+      synth.triggerAttackRelease([sparkleNotes[1], sparkleNotes[3]], "8n", now + 0.5, 0.26);
+    } catch {
+      // Achievement audio should never block unlock state.
+    }
+  },
+
+  playDialoguePopupCue() {
+    if (!started || muted || !toneModule || !synth || !pianoSynth) {
+      return;
+    }
+
+    try {
+      const now = toneModule.now();
+      synth.triggerAttackRelease("A4", "32n", now, 0.22);
+      pianoSynth.triggerAttackRelease(["E5", "A5"], "16n", now + 0.08, 0.2);
+    } catch {
+      // Ambient dialogue is a visual feature first.
+    }
+  },
+
   playTapeBootSequence() {
     if (!started || muted || !synth || !toneModule) {
       return;

@@ -72,7 +72,7 @@ export const VisualNovelOverlay = ({
           transition={{ duration: 0.35, ease: "easeOut" }}
           role="dialog"
           aria-label={`${speaker.name} dialogue`}
-          aria-modal="true"
+          aria-modal={dimBackground}
         >
           <motion.div
             className={styles.characterLayer}

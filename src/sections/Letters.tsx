@@ -6,6 +6,7 @@ import { guides, GuideCharacter } from "../data/guides";
 const teamLetters: Array<{ sender: GuideCharacter; content: string }> = [
   { sender: guides.kagura, content: "Gửi hai nàng tinh linh, 4 năm qua là một chặng đường dài với nhiều thử thách nhưng cũng đầy ắp tiếng cười. Cảm ơn hai cậu đã luôn giữ vững tinh thần rạng rỡ ấy. Chúc hai cậu mãi bình an và hạnh phúc." },
   { sender: guides.imed, content: "Code game này mệt mỏi lắm đó biết không? Nhưng vì là quà cho hai cậu nên tớ sẽ tha thứ. Chúc hai cậu một hành trình mới đầy thú vị và bớt báo nhé." },
+  { sender: guides.anChi, content: "Có những tín hiệu không ồn ào, nhưng cứ sáng mãi trong lòng người xem. Cảm ơn hai cậu vì đã đi qua bốn năm bằng rất nhiều dịu dàng, can đảm và những khoảnh khắc đáng giữ lại. Chúc chương tiếp theo của hai cậu rộng hơn, sáng hơn, và vẫn luôn có nơi để trở về." },
   { sender: guides.lilWayne, content: "Lô, làm bố thì không nói nhiều. Chúc hai đứa năm mới vui vẻ, tiền vào như nước, bớt tấu hài nhạt lại. Thế thôi." },
   { sender: guides.kuro, content: "Hai đứa nhớ giữ gìn sức khỏe nhé, đừng thức khuya quá. Cảm ơn vì những năng lượng tích cực hai đứa đã mang lại cho mọi người." },
   { sender: guides.nova, content: "Hệ thống ghi nhận hai mục tiêu đã tồn tại được 4 năm. Đánh giá: Rất tốt. Đề nghị tiếp tục phát huy trong tương lai." },

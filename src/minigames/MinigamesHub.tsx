@@ -11,6 +11,7 @@ type MinigamesHubProps = {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   onClose: () => void;
+  increaseAffinity?: (characterId: string, amount: number) => void;
 };
 
 type GameConfig = {
@@ -59,7 +60,7 @@ const GAMES: GameConfig[] = [
   },
 ];
 
-export const MinigamesHub = ({ state, setState, onClose }: MinigamesHubProps) => {
+export const MinigamesHub = ({ state, setState, onClose, increaseAffinity }: MinigamesHubProps) => {
   const [activeGameId, setActiveGameId] = useState<string | null>(null);
 
   const ActiveGameComponent = GAMES.find((g) => g.id === activeGameId)?.component;
@@ -78,6 +79,10 @@ export const MinigamesHub = ({ state, setState, onClose }: MinigamesHubProps) =>
         },
       };
     });
+
+    if (increaseAffinity) {
+      setTimeout(() => increaseAffinity("lil-wayne", isWin ? 2 : 1), 0);
+    }
   };
 
   return (

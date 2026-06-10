@@ -59,7 +59,7 @@ export const Scrapbook = ({
     hasQueuedIntroRef.current = true;
     markDialogueSeen(dialogueId);
     requestDialogue({
-      speaker: guides.kuro,
+      speaker: guides.anChi,
       lines: ["Ký ức thì không phải để giấu đúng không"],
       mood: "soft",
     });
@@ -253,7 +253,7 @@ export const Scrapbook = ({
                       rotation={Math.random() * 8 - 4} 
                     />
                     <div className="polaroidCaptionHandwritten">
-                      [Image for {ch.stamp}]
+                      {ch.imageCaption}
                     </div>
                     <div className="highlightMark" style={{ backgroundColor: ch.color }} />
                     <div className="paperclipWrapper">
@@ -277,7 +277,7 @@ export const Scrapbook = ({
                       rotation={Math.random() * 8 - 4}
                     />
                     <div className="polaroidCaptionHandwritten" style={{ marginTop: '2rem' }}>
-                      [Video Recap {ch.stamp}]
+                      {ch.videoCaption}
                     </div>
                   </div>
                 </Page>,

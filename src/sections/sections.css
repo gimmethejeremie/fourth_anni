@@ -141,7 +141,7 @@
   border-radius: 8px;
   background:
     radial-gradient(circle at 66% 58%, rgba(168, 146, 214, 0.12), transparent 18rem),
-    url('/cosmos-bg.png') center/cover no-repeat;
+    url('/fourth_anni/cosmos-bg.png') center/cover no-repeat;
   box-shadow:
     inset 0 0 80px rgba(0, 0, 0, 0.42),
     0 26px 80px rgba(0, 0, 0, 0.34);
@@ -791,12 +791,12 @@
 
 .moonDisc.waning2022,
 .moonPhaseImage.waning2022 {
-  background: url('/moon_pics/2022.png') center/cover no-repeat;
+  background: url('/fourth_anni/moon_pics/2022.png') center/cover no-repeat;
 }
 
 .moonDisc.firstQuarter2026,
 .moonPhaseImage.firstQuarter2026 {
-  background: url('/moon_pics/2026.png') center/cover no-repeat;
+  background: url('/fourth_anni/moon_pics/2026.png') center/cover no-repeat;
 }
 
 .moonPhaseCopy {
@@ -1948,7 +1948,7 @@
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(8, 10, 18, 0.14), rgba(8, 10, 18, 0.72)),
-    url('/cosmos-bg.png') center/cover no-repeat;
+    url('/fourth_anni/cosmos-bg.png') center/cover no-repeat;
 }
 
 .vtuberArtFrame img,
@@ -2057,7 +2057,7 @@
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(8, 10, 18, 0.98), rgba(8, 10, 18, 0.72) 45%, rgba(8, 10, 18, 0.98)),
-    url('/cosmos-bg.png') center/cover no-repeat;
+    url('/fourth_anni/cosmos-bg.png') center/cover no-repeat;
 }
 
 .creditScreen::before,

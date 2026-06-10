@@ -84,9 +84,13 @@ export const Tarot = ({
         mood: "funny",
       },
       {
-        speaker: guides.kagura,
-        lines: ["Thôi thì lỡ đến đây rồi, cùng coi thử quãng thời gian sắp tới của hai cậu sẽ như thế nào nhé!"],
-        mood: "soft",
+        speaker: guides.anChi,
+        lines: [
+          "Được rồi, để tớ bắt lại tín hiệu.",
+          "Tarot ở đây không phải để phán quyết, mà để các cậu có thêm một cách lắng nghe chính mình.",
+          "Thử xem quãng thời gian sắp tới của hai cậu sẽ ngân lên như thế nào nhé.",
+        ],
+        mood: "mysterious",
       },
     ];
 
@@ -112,16 +116,21 @@ export const Tarot = ({
       meaning: drawnCard.meaning,
     }));
 
-    setState((previous) => ({
-      ...previous,
-      tarotReading: {
+    setState((previous) => {
+      const readingRecord = {
         cards: savedCards,
         topic: reading.topic,
         topicLabel: reading.topicLabel,
         question: reading.question,
         createdAt: new Date().toISOString(),
-      },
-    }));
+      };
+      
+      return {
+        ...previous,
+        tarotReading: readingRecord,
+        tarotHistory: [...previous.tarotHistory, readingRecord],
+      };
+    });
 
     setReadingFinished(true);
   };

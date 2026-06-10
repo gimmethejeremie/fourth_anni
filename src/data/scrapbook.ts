@@ -19,6 +19,8 @@ export type ScrapbookChapter = {
   paperclipNote: string;
   image: string;
   video: string;
+  imageCaption: string;
+  videoCaption: string;
   quote: QuoteData;
   marginNotes: MarginNoteData[];
   yearSpan: string;
@@ -36,8 +38,10 @@ export const linhLanChapters: ScrapbookChapter[] = [
     color: "#9B6EC8", // ln-pri
     textureClass: "texture-clean",
     paperclipNote: "Lưu ý: đây chỉ là bắt đầu.",
-    image: "LL_Year1_Image_Placeholder",
-    video: "LL_Year1_Video_Placeholder",
+    image: "Ánh live đầu còn run",
+    video: "Tín hiệu đầu tiên",
+    imageCaption: "Năm đầu mở tín hiệu",
+    videoCaption: "Bản ghi của một khởi đầu",
     quote: {
       text: "Ngày đầu tiên bật live, tay vẫn còn run.",
       speaker: "Linh Lan",
@@ -57,8 +61,10 @@ export const linhLanChapters: ScrapbookChapter[] = [
     color: "#B28EE0", // ln-pri variant
     textureClass: "texture-creased",
     paperclipNote: "Xem lại stream này nếu bạn cần nhớ tại sao.",
-    image: "LL_Year2_Image_Placeholder",
-    video: "LL_Year2_Video_Placeholder",
+    image: "Giọng hát tìm được đường",
+    video: "Những lần thử lại",
+    imageCaption: "Khi tiếng nói bắt đầu có hình",
+    videoCaption: "Một năm học cách vang xa hơn",
     quote: {
       text: "Đôi khi phải lạc đường mới tìm thấy nhà.",
       speaker: "Linh Lan",
@@ -78,8 +84,10 @@ export const linhLanChapters: ScrapbookChapter[] = [
     color: "#C8A8F0", // ln-acc
     textureClass: "texture-stained",
     paperclipNote: "Ngày khó nhất cũng qua rồi.",
-    image: "LL_Year3_Image_Placeholder",
-    video: "LL_Year3_Video_Placeholder",
+    image: "Một khung hình trưởng thành",
+    video: "Ngày khó rồi cũng qua",
+    imageCaption: "Lớn lên trong ánh đèn",
+    videoCaption: "Những vết xước biến thành nhịp thở",
     quote: {
       text: "Lớn lên đau đấy, nhưng xứng đáng.",
       speaker: "Linh Lan",
@@ -99,8 +107,10 @@ export const linhLanChapters: ScrapbookChapter[] = [
     color: "#EAD8FF", // ln-text
     textureClass: "texture-worn",
     paperclipNote: "Bạn đang đọc cái này vào ngày 20/08/2026.",
-    image: "LL_Year4_Image_Placeholder",
-    video: "LL_Year4_Video_Placeholder",
+    image: "Ở đây, vào hôm nay",
+    video: "Bốn năm gom lại",
+    imageCaption: "Mọi tín hiệu gặp nhau ở hiện tại",
+    videoCaption: "Lời cảm ơn trước chương tiếp theo",
     quote: {
       text: "Cảm ơn vì đã ở đây.",
       speaker: "Linh Lan",
@@ -124,8 +134,10 @@ export const lanLinhChapters: ScrapbookChapter[] = [
     color: "#ef88be", // ll-pri
     textureClass: "texture-clean",
     paperclipNote: "Lưu ý: Không quay đầu lại.",
-    image: "LAN_Year1_Image_Placeholder",
-    video: "LAN_Year1_Video_Placeholder",
+    image: "Bước chân đầu tiên",
+    video: "Căn phòng sáng lên",
+    imageCaption: "Năm đầu thức dậy cùng sân khấu",
+    videoCaption: "Một đoạn băng còn nguyên sự háo hức",
     quote: {
       text: "Không nghĩ là mình làm được, cho đến khi thử.",
       speaker: "Lan Linh",
@@ -145,8 +157,10 @@ export const lanLinhChapters: ScrapbookChapter[] = [
     color: "#f29ecb", // ll-pri variant
     textureClass: "texture-creased",
     paperclipNote: "Nghe lại bài này khi mệt.",
-    image: "LAN_Year2_Image_Placeholder",
-    video: "LAN_Year2_Video_Placeholder",
+    image: "Nhịp riêng khẽ vang",
+    video: "Một bài hát để giữ",
+    imageCaption: "Khi nhịp điệu tìm thấy chủ nhân",
+    videoCaption: "Những khoảng lặng cũng biết hát",
     quote: {
       text: "Nhịp điệu do chính mình tạo ra.",
       speaker: "Lan Linh",
@@ -166,8 +180,10 @@ export const lanLinhChapters: ScrapbookChapter[] = [
     color: "#f6a9d1", // ll-acc
     textureClass: "texture-stained",
     paperclipNote: "Giữ chặt.",
-    image: "LAN_Year3_Image_Placeholder",
-    video: "LAN_Year3_Video_Placeholder",
+    image: "Sau cơn mưa nhỏ",
+    video: "Vẫn đứng dưới ánh đèn",
+    imageCaption: "Năm của những thử thách thật hơn",
+    videoCaption: "Đi qua bão mà vẫn giữ màu sáng",
     quote: {
       text: "Sau cơn mưa, trời lại sáng.",
       speaker: "Lan Linh",
@@ -187,8 +203,10 @@ export const lanLinhChapters: ScrapbookChapter[] = [
     color: "#ffd8ea", // ll-soft
     textureClass: "texture-worn",
     paperclipNote: "Gặp lại ở vạch đích.",
-    image: "LAN_Year4_Image_Placeholder",
-    video: "LAN_Year4_Video_Placeholder",
+    image: "Chân trời mới mở",
+    video: "Bốn năm, một lời hẹn",
+    imageCaption: "Đường chân trời không phải điểm kết",
+    videoCaption: "Sẵn sàng bước sang ngày mai",
     quote: {
       text: "Sẵn sàng cho ngày mai.",
       speaker: "Lan Linh",

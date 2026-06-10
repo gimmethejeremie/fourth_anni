@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gifts } from "../../data/gacha";
 import { achievements } from "../../data/achievements";
+import { guides, guideList } from "../../data/guides";
 import { journeyParts } from "../../data/journey";
 import { canSeeHiddenStarlog, getUnlockedAchievementCount } from "../../lib/achievements";
 import { AppState } from "../../lib/storage";
@@ -10,9 +11,10 @@ type StarlogDrawerProps = {
   open: boolean;
   state: AppState;
   onClose: () => void;
+  openTarotJournal?: () => void;
 };
 
-export const StarlogDrawer = ({ open, state, onClose }: StarlogDrawerProps) => {
+export const StarlogDrawer = ({ open, state, onClose, openTarotJournal }: StarlogDrawerProps) => {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const hiddenVisible = canSeeHiddenStarlog(state);
@@ -90,6 +92,26 @@ export const StarlogDrawer = ({ open, state, onClose }: StarlogDrawerProps) => {
         </section>
 
         <section className={styles.panel}>
+          <h3>Mức Độ Kết Nối (Bond)</h3>
+          <ul className={styles.list}>
+            {guideList.map((guide) => {
+              const affinity = state.characterAffinity[guide.id] || 0;
+              return (
+                <li key={guide.id} className={affinity > 0 ? styles.unlocked : styles.locked}>
+                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+                    <div>
+                      <strong style={{ color: guide.color }}>{guide.name}</strong>
+                      <small>{guide.role}</small>
+                    </div>
+                    <span>{affinity > 0 ? `💖 ${affinity}` : "0"}</span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <section className={styles.panel}>
           <h3>Túi Quà Gacha</h3>
           {state.gashaponInventory.length ? (
             <ul className={styles.inventoryList}>
@@ -125,6 +147,11 @@ export const StarlogDrawer = ({ open, state, onClose }: StarlogDrawerProps) => {
             </>
           ) : (
             <p>Các lá bài vẫn đang úp.</p>
+          )}
+          {openTarotJournal && (
+            <button className={styles.resetButton} onClick={openTarotJournal} style={{ marginTop: "1rem" }}>
+              Mở Nhật Ký Trải Bài
+            </button>
           )}
         </section>
 
